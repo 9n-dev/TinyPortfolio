@@ -1,6 +1,6 @@
 import { rng } from './rng';
-import { scenes, SCENE_COLS } from './scenes';
-import type { Actor, Point, SceneId } from './scenes';
+import { clearings, scenes, CLEARING_COLS, CLEARING_ROWS, SCENE_COLS } from './scenes';
+import type { Actor, Point, Scene, SceneId } from './scenes';
 import { sprites } from './sprites.generated';
 import type { SpriteId } from './sprites.generated';
 import { TILE, WATER, isLand } from './terrain';
@@ -67,24 +67,34 @@ export function compose(sections: SectionBox[], worldW: number, worldH: number):
     else wanted.push({ id, row: i === 0 ? 0 : Math.round(middle - scenes[id].rows.length / 2) });
   });
   wanted.push({ id: 'shore', row: rows - scenes.shore.rows.length });
-  let free = 0;
-  for (const { id, row: wantedRow, shift = 0 } of wanted) {
-    const scene = scenes[id], row = Math.max(wantedRow, free), off = base + shift;
-    if (row + scene.rows.length > rows) continue;   // page too short for it
-    free = row + scene.rows.length;
-    world.placed.push({ id, row, rows: scene.rows.length });
+  /** Stamps a scene at a row and column. Full-width scenes repeat their edge terrain out to the sides of wide screens. */
+  const place = (scene: Scene, row: number, off: number, width: number) => {
     scene.rows.forEach((line, r) => {
-      for (let c = 0; c < cols; c++) {
-        const char = line[Math.min(Math.max(c - off, 0), SCENE_COLS - 1)];
-        const inside = c >= off && c < off + SCENE_COLS;
+      for (let c = width === SCENE_COLS ? 0 : off; c < (width === SCENE_COLS ? cols : off + width); c++) {
+        const char = line[Math.min(Math.max(c - off, 0), width - 1)];
         if (char === WATER || char === 'o') cells[row + r][c] = WATER;
-        if (inside) { legend(char, c, row + r); busy.add(key(c, row + r)); }
+        if (c >= off && c < off + width) { legend(char, c, row + r); busy.add(key(c, row + r)); }
       }
     });
     const px = ([x, y]: Point): Point => [(x + off) * TILE, (y + row) * TILE];
-    for (const prop of scene.props) put(prop.sprite, ...px([prop.x, prop.y]), cellRandom(prop.x, prop.y, 3));
+    for (const prop of scene.props) put(prop.sprite, ...px([prop.x, prop.y]), cellRandom(prop.x, prop.y + row, 3));
     for (const actor of scene.actors)
       world.actors.push({ ...actor, path: actor.path.map(px), ...('look' in actor ? { look: px(actor.look) } : {}) } as PlacedActor);
+  };
+  let free = 0;
+  for (const { id, row: wantedRow, shift = 0 } of wanted) {
+    const scene = scenes[id], row = Math.max(wantedRow, free);
+    if (row + scene.rows.length > rows) continue;   // page too short for it
+    free = row + scene.rows.length;
+    world.placed.push({ id, row, rows: scene.rows.length });
+    place(scene, row, base + shift, SCENE_COLS);
+  }
+  // Beside the long panels, small clearings keep the margins alive: one every few rows on each side.
+  const taken = (row: number) => world.placed.some(s => row + CLEARING_ROWS > s.row - 1 && row < s.row + s.rows + 1);
+  for (let row = 3; row + CLEARING_ROWS < rows; row += CLEARING_ROWS + 2) {
+    if (taken(row)) continue;
+    [4, SCENE_COLS - 4 - CLEARING_COLS].forEach((col, side) =>
+      place(clearings[Math.floor(cellRandom(side, row, 5) * clearings.length)], row, base + col, CLEARING_COLS));
   }
   world.grid = cells.map(line => line.join(''));
 

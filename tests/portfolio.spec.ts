@@ -128,3 +128,15 @@ test('keyboard: skip link first, focus is visible, primary button shows its pres
   expect(await cell.evaluate(element => getComputedStyle(element).backgroundImage)).not.toBe(rest);
   await page.mouse.up();
 });
+
+test('a frame of the world costs little script time', async ({ page }) => {
+  await page.setViewportSize({ width: 1920, height: 1080 });
+  await page.goto('/');
+  await ready(page);
+  await page.waitForTimeout(4000);
+  const costs: number[] = await page.evaluate(() => (window as any).__world.costs);
+  const mean = costs.reduce((a, b) => a + b, 0) / costs.length, worst = Math.max(...costs.slice(10));
+  console.log(`world frame: mean ${mean.toFixed(2)} ms, worst ${worst.toFixed(2)} ms over ${costs.length} frames`);
+  expect(costs.length).toBeGreaterThan(60);
+  expect(mean).toBeLessThan(4);
+});

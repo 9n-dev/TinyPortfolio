@@ -1,6 +1,6 @@
 # Portfolio con mundo vivo de TinyRTS: diseño
 
-Fecha: 2026-09-17. Estado: pendiente de revisión del autor.
+Fecha: 2026-09-17. Estado: aprobado e implementado.
 
 ## Objetivo
 

@@ -1,6 +1,6 @@
 # Living World Portfolio Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Sustituir el fondo estático del portfolio por una aldea de TinyRTS simulada en canvas, añadir About, ES/EN y contenido real.
 
@@ -71,10 +71,10 @@ lancerRun archerIdle archerRun archerShoot arrow monkIdle monkRun monkHeal tilem
 Anchos de frame: unidades 192 (lancero 320), oveja 128, árbol 192 (alto 256 en tree1/2, 192 en tree3/4), arbusto 128,
 roca de agua 64, espuma 192, resto un solo frame. fps 10 (espuma 8, nubes 0).
 
-- [ ] Quitar de `prepare-assets.py` todo lo que lea `world.json` o escriba en `terrain/` y `units/`; conservar `UI_SHEETS`, cinta, divisor e iconos.
-- [ ] Añadir tabla `WORLD = {id: (ruta en el ZIP, frameW, frameH, fps)}`, copiar cada PNG a `public/assets/world/<id>.png`, medir la caja opaca del frame 0 con `Image.getbbox()` y escribir `sprites.generated.ts`.
-- [ ] Run `python3 scripts/prepare-assets.py` → lista de ficheros sin errores; `du -sh public/assets/world` < 1,5 MB.
-- [ ] Borrar `public/assets/terrain`, `public/assets/units`, `src/data/scenes`, `docs/scene-validation.json`, `docs/selected-assets.json`. Commit.
+- [x] Quitar de `prepare-assets.py` todo lo que lea `world.json` o escriba en `terrain/` y `units/`; conservar `UI_SHEETS`, cinta, divisor e iconos.
+- [x] Añadir tabla `WORLD = {id: (ruta en el ZIP, frameW, frameH, fps)}`, copiar cada PNG a `public/assets/world/<id>.png`, medir la caja opaca del frame 0 con `Image.getbbox()` y escribir `sprites.generated.ts`.
+- [x] Run `python3 scripts/prepare-assets.py` → lista de ficheros sin errores; `du -sh public/assets/world` < 1,5 MB.
+- [x] Borrar `public/assets/terrain`, `public/assets/units`, `src/data/scenes`, `docs/scene-validation.json`, `docs/selected-assets.json`. Commit.
 
 ### Task 2: Terreno, RNG, escenas, composición y validación (lógica pura)
 
@@ -114,7 +114,7 @@ densidad creciente hacia los bordes; nunca sobre agua ni a menos de 1 tile de un
 Reglas de `validate`: ningún prop, punto de ruta ni segmento (muestreado cada 16 px) sobre agua o dentro de una huella
 sólida ajena; ningún prop de escena dentro de `reserved`; todo `sprite` existe en `sprites`; las escenas no se solapan.
 
-- [ ] **Test primero** (`tests/world.spec.ts`, sin `page`):
+- [x] **Test primero** (`tests/world.spec.ts`, sin `page`):
 
 ```ts
 import { test, expect } from '@playwright/test';
@@ -139,9 +139,9 @@ for (const h of [900, 1300, 2000]) test(`mundo válido con secciones de ${h}px`,
 });
 ```
 
-- [ ] Run `npx playwright test tests/world.spec.ts` → FAIL (módulos inexistentes).
-- [ ] Implementar `rng`, `terrain`, `scenes` (primer borrador de las seis escenas según la referencia), `compose`, `validate`.
-- [ ] Run → PASS. Commit.
+- [x] Run `npx playwright test tests/world.spec.ts` → FAIL (módulos inexistentes).
+- [x] Implementar `rng`, `terrain`, `scenes` (primer borrador de las seis escenas según la referencia), `compose`, `validate`.
+- [x] Run → PASS. Commit.
 
 ### Task 3: Entidades
 
@@ -158,7 +158,7 @@ export function step(entities: Entity[], dt: number): void;        // dt en segu
 Ciclos como en la tabla del spec. Velocidades: peón 60 px/s, patrulla 50, monje 35, oveja 25. La flecha del arquero es
 una entidad más, creada en el frame 6 de `archerShoot` y eliminada al llegar a la diana.
 
-- [ ] Test primero:
+- [x] Test primero:
 
 ```ts
 test('leñador completa el ciclo y vuelve cargado', () => {
@@ -174,7 +174,7 @@ test('la oveja no sale de su prado', () => {
 });
 ```
 
-- [ ] Run → FAIL. Implementar. Run → PASS. Commit.
+- [x] Run → FAIL. Implementar. Run → PASS. Commit.
 
 ### Task 4: Render e integración
 
@@ -188,10 +188,10 @@ export function draw(ctx: CanvasRenderingContext2D, world: World, entities: Enti
 export function WorldCanvas({ paused }: { paused: boolean }): JSX.Element;
 ```
 
-- [ ] `draw`: fondo agua → espuma (fase `(x*3+y*5)%16`, 8 fps) → hierba autotileada → sombras → props+entidades por Y de pies → nubes. Recorte por viewport + 2 tiles. Terreno cacheado en un canvas fuera de pantalla por World.
-- [ ] `WorldCanvas`: mide `section[id]` y su `.pixel-panel` principal, `ResizeObserver` sobre `.world`, recompone; rAF con `dt ≤ 0.05`; para con `document.hidden`; con `paused` o `prefers-reduced-motion` pinta un frame y repinta solo en scroll/resize. Expone `window.__world = { world, entities }` solo en `import.meta.env.DEV` para los tests.
-- [ ] CSS: `body { background: #6aa84f-equivalente del tile }`, `.world` sin imagen de fondo, canvas `position: fixed; inset: 0; z-index: 0`, contenido `z-index: 1`; margen vertical entre secciones de 320 px (160 px < 768 px).
-- [ ] `npm run build` → sin errores. `npm run dev` + captura a 1440×900 con Playwright → el mundo se ve. Commit.
+- [x] `draw`: fondo agua → espuma (fase `(x*3+y*5)%16`, 8 fps) → hierba autotileada → sombras → props+entidades por Y de pies → nubes. Recorte por viewport + 2 tiles. Terreno cacheado en un canvas fuera de pantalla por World.
+- [x] `WorldCanvas`: mide `section[id]` y su `.pixel-panel` principal, `ResizeObserver` sobre `.world`, recompone; rAF con `dt ≤ 0.05`; para con `document.hidden`; con `paused` o `prefers-reduced-motion` pinta un frame y repinta solo en scroll/resize. Expone `window.__world = { world, entities }` solo en `import.meta.env.DEV` para los tests.
+- [x] CSS: `body { background: #6aa84f-equivalente del tile }`, `.world` sin imagen de fondo, canvas `position: fixed; inset: 0; z-index: 0`, contenido `z-index: 1`; margen vertical entre secciones de 320 px (160 px < 768 px).
+- [x] `npm run build` → sin errores. `npm run dev` + captura a 1440×900 con Playwright → el mundo se ve. Commit.
 
 ### Task 5: Idiomas, contenido y secciones
 
@@ -205,17 +205,17 @@ export function LanguageProvider(props: PropsWithChildren): JSX.Element;
 export function useContent(): { lang: Lang; setLang(l: Lang): void; t: Content };   // Content = typeof en
 ```
 
-- [ ] `en.ts` con los textos del spec; `es.ts: Content`. Proyecto: `{ name, category, description, stack, url?, sourceUrl?, image? }`.
-- [ ] Idioma inicial: `localStorage.lang` → `navigator.language.startsWith('es')` → `en` (con try/catch). Efecto: `documentElement.lang`, `document.title`, meta descripción.
-- [ ] Selector `ES | EN` en la navbar (`<button aria-pressed>`). About con avatar, dos párrafos y cuatro datos. Botones de proyecto condicionales. Quitar CV.
-- [ ] `contact.ts`: cabecera `Accept: application/json`; campo `_gotcha` oculto en el formulario, y si viene relleno no se envía.
-- [ ] `npx tsc -b` → sin errores. Commit.
+- [x] `en.ts` con los textos del spec; `es.ts: Content`. Proyecto: `{ name, category, description, stack, url?, sourceUrl?, image? }`.
+- [x] Idioma inicial: `localStorage.lang` → `navigator.language.startsWith('es')` → `en` (con try/catch). Efecto: `documentElement.lang`, `document.title`, meta descripción.
+- [x] Selector `ES | EN` en la navbar (`<button aria-pressed>`). About con avatar, dos párrafos y cuatro datos. Botones de proyecto condicionales. Quitar CV.
+- [x] `contact.ts`: cabecera `Accept: application/json`; campo `_gotcha` oculto en el formulario, y si viene relleno no se envía.
+- [x] `npx tsc -b` → sin errores. Commit.
 
 ### Task 6: E2E, revisión visual e iteración
 
 **Files:** Modify `tests/portfolio.spec.ts`, `tests/visual-review.spec.ts`, `playwright.config.ts` si hace falta.
 
-- [ ] Adaptar los E2E a cinco secciones y sin `SceneRegion`. Nuevos tests:
+- [x] Adaptar los E2E a cinco secciones y sin `SceneRegion`. Nuevos tests:
 
 ```ts
 test('el mundo se pinta, se mueve y se congela en pausa', async ({ page }) => {
@@ -234,13 +234,13 @@ test('el idioma cambia y persiste', async ({ page }) => {
 });
 ```
 
-- [ ] `validate(window.__world.world)` en navegador a 1728, 1440, 1024, 768, 390 y 320 px y en ambos idiomas → `[]`.
-- [ ] Capturas completas y por sección a 1728×864, 1440×900 y 390×844 en `docs/screenshots/`. Revisarlas a ojo contra `fae6f04b-….png`: densidad de la aldea, bosque cerrado en los bordes, nada cortado por paneles, legibilidad del texto, móvil a escala 0,5. Corregir escenas y repetir hasta que quede bien.
-- [ ] Medir tiempo de frame (`performance.now()` alrededor de `step`+`draw`, media y máximo en 300 frames) → media < 4 ms, máximo < 8 ms.
-- [ ] `npm run test:e2e` → todo PASS. Commit.
+- [x] `validate(window.__world.world)` en navegador a 1728, 1440, 1024, 768, 390 y 320 px y en ambos idiomas → `[]`.
+- [x] Capturas completas y por sección a 1728×864, 1440×900 y 390×844 en `docs/screenshots/`. Revisarlas a ojo contra `fae6f04b-….png`: densidad de la aldea, bosque cerrado en los bordes, nada cortado por paneles, legibilidad del texto, móvil a escala 0,5. Corregir escenas y repetir hasta que quede bien.
+- [x] Medir tiempo de frame (`performance.now()` alrededor de `step`+`draw`, media y máximo en 300 frames) → media < 4 ms, máximo < 8 ms.
+- [x] `npm run test:e2e` → todo PASS. Commit.
 
 ### Task 7: Documentación, limpieza y entrega
 
-- [ ] Borrar `docs/revision`, `docs/clean`, `docs/inhabited`, `docs/screenshot-*.png`, `docs/hero-*.png`, `docs/verification.md`.
-- [ ] Reescribir `README.md` (contenido e idiomas, escenas, Formspree, despliegue) y actualizar `docs/asset-audit.md`.
-- [ ] `npm run build` y `npm run test:e2e` → PASS. Commit y `git push`.
+- [x] Borrar `docs/revision`, `docs/clean`, `docs/inhabited`, `docs/screenshot-*.png`, `docs/hero-*.png`, `docs/verification.md`.
+- [x] Reescribir `README.md` (contenido e idiomas, escenas, Formspree, despliegue) y actualizar `docs/asset-audit.md`.
+- [x] `npm run build` y `npm run test:e2e` → PASS. Commit y `git push`.

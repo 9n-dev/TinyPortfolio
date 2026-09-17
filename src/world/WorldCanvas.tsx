@@ -21,6 +21,7 @@ export function WorldCanvas({ paused }: { paused: boolean }) {
     const phone = matchMedia('(max-width: 767px)'), calm = matchMedia('(prefers-reduced-motion: reduce)');
     let images: Images | undefined, world: World | undefined, entities: Entity[] = [];
     let layout = '', time = 0, last = 0, dirty = true, frame = 0;
+    const costs: number[] = [];   // ms of script per painted frame, most recent 300
 
     const measure = () => {
       const scale = phone.matches ? 0.5 : 1, ratio = Math.max(1, Math.round(devicePixelRatio));
@@ -40,7 +41,7 @@ export function WorldCanvas({ paused }: { paused: boolean }) {
         layout = signature;
         world = compose(boxes, worldW, worldH);
         entities = spawn(world.actors, 1);
-        Object.assign(window, { __world: { world, entities } });   // read by the end-to-end tests
+        Object.assign(window, { __world: { world, entities, costs } });   // read by the end-to-end tests
       }
       dirty = true;
       return { scale, ratio, left, w: worldW, h: height / scale };
@@ -55,9 +56,11 @@ export function WorldCanvas({ paused }: { paused: boolean }) {
       last = now;
       const still = pausedRef.current || calm.matches;
       if (!world || !images || (still && !dirty)) return;
+      const started = performance.now();
       if (!still) { time += dt; step(entities, dt); }
       dirty = false;
       draw(ctx, world, entities, images, { x: view.left, y: scrollY / view.scale, w: view.w, h: view.h, zoom: view.scale * view.ratio }, time);
+      if (costs.push(performance.now() - started) > 300) costs.shift();
     };
     loadImages().then(loaded => { images = loaded; dirty = true; });
     frame = requestAnimationFrame(loop);

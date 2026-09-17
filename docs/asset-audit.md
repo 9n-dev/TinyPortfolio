@@ -1,4 +1,4 @@
-# Auditoría de UI y escena — iteración actual
+# Auditoría de assets
 
 Se inspeccionaron el ZIP, la referencia de mapa, capturas existentes y las77 imágenes UI del pack (también avatars/cursors y banners de tienda). El inventario completo permanece en `asset-inventory.txt`. No se encontró una captura de UI adicional en los archivos accesibles; se usaron directamente los originales. Las imágenes se revisaron como contact sheets y los atlas elegidos a resolución original.
 
@@ -21,19 +21,21 @@ No se estira ningún atlas completo. Las celdas recortadas mantienen su proporci
 
 ## Mundo
 
-- Castle, House1/2/3, Tower, Barracks, Archery, Monastery: sprites independientes, tamaño nativo, solo escenario.
-- Tree1/2:8 frames192×256; Tree3/4:8 frames192×192. Se utiliza frame0. Copas solapadas únicamente si sus bases están separadas.
-- Bushes:8 frames128×128; Rocks y Gold Stone3: sprites individuales. Vegetación/recursos a escala nativa.
-- Warrior/Pawn:8 frames192×192. Archer/Monk:6 frames192×192. Lancer:12 frames320×320. Sheep:6 frames128×128.
-- Se calcula la unión alfa de todos los frames de cada unidad antes de recortar. Así la animación no salta ni invade espacio no validado.
-- Water Rocks01:16 frames64×64, se usa frame0. Tilemap_color2:atlas64, piezas de costa y tile interior. Water Background color:tile64.
-- Water Foam fue inspeccionado; no se usa una tira rectangular de espuma en estanques de otra forma.
-- El ZIP no contiene cerdos. Se conservan los animales reales disponibles, sin recolorear ovejas ni recurrir a otro pack.
+`scripts/prepare-assets.py` copia sin modificar a `public/assets/world/` los PNG del pack que usa el canvas y genera
+`src/world/sprites.generated.ts` con la rejilla de frames y la caja opaca del frame 0 de cada uno; el centro inferior
+de esa caja es el ancla de los pies, que decide el orden de pintado. En las unidades el ancla X es el centro del frame
+para que no salten al cambiar de animación.
 
-## Validación y capas
+- Terreno: `Tilemap_color1` (bloque 3×3, tiras y tile suelto del suelo llano), `Water Foam` (16 frames de 192, 8 fps,
+  fase distinta por casilla) y el color de `Water Background color`. El autotile es el de TinyRTS: solo bordes convexos.
+- Edificios azules: Castle, House1/2/3, Tower, Barracks, Archery, Monastery. Un frame, tamaño nativo.
+- Tree1–4 (8 frames), Stump1–4, Bushe1–4 (8 frames), Rock1–4, Water Rocks 1–4 (16 frames), Clouds 1–8, Gold Stone 1–6,
+  Gold Resource, Wood Resource.
+- Pawn: Idle, Run, Idle/Run/Interact Axe, Run Wood, Idle/Run/Interact Pickaxe, Run Gold, Idle/Interact Hammer.
+  Warrior: Idle, Run, Guard. Lancer: Idle, Run (frames de 320). Archer: Idle, Run, Shoot y Arrow. Monk: Idle, Run, Heal.
+  Sheep: Idle, Grass, Move (frames de 128).
+- Avatar de About: `Human Avatars/Avatars_01`.
+- El Free Pack no contiene cerdos ni otros animales: solo ovejas. No se usa el Enemy Pack.
 
-Las posiciones se guardan en `world.json`, sin aleatoriedad. El generador valida reservas de UI, colisiones entre cajas visibles, agua y bases de árboles; pinta agua antes de objetos y ordena estos por el borde inferior de su caja. Los sprites animados no intersectan ningún otro elemento, por lo que pueden dibujarse sobre la composición estática sin ambigüedad de profundidad.
-
-La aplicación usa niveles explícitos para terreno/escenario, contenido y navbar. El terreno está en `.world`; las imágenes de región son transparentes y están ancladas a la sección. Los tests comparan las cajas de los datos con las superficies reales del navegador y comprueban habitantes completos en1728/1440/1366/1024/768/390/320px.
-
-`selected-assets.json` lista las exportaciones; `world.json` identifica las fuentes de los objetos que se componen en WebP. Las capturas actuales están en `inhabited/`; `clean/` y `revision/` conservan las iteraciones anteriores.
+La sombra de las unidades es una elipse dibujada por el canvas; `Shadow.png` del pack está pensado para mesetas.
+El ZIP original no se versiona (licencia de Pixel Frog): hace falta en local solo para volver a ejecutar el script.

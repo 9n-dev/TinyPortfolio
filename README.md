@@ -1,97 +1,79 @@
-# Tiny World — Developer Portfolio
+# TinyPortfolio
 
-Portfolio React + TypeScript + Vite, con un mundo pixel-art construido exclusivamente con Tiny Swords (Free Pack). Navegación convencional, cuatro secciones y diseño adaptable. Sin motor de juego ni librería de animación.
+Portfolio de Manuel Allegue López con la interfaz del pack **Tiny Swords** (tablones, pergaminos, cintas, botones) y, de
+fondo, una aldea de [TinyRTS](https://github.com/9n-dev/TinyRTS) viva: agua con espuma, bosque que se mece, aldeanos que
+talan y pican, ovejas, patrullas, arqueros tirando a las dianas y nubes. React + TypeScript + Vite, un `<canvas>` 2D
+propio y ninguna dependencia de juego. En español e inglés.
 
 ## Desarrollo
 
 ```sh
 npm install
-npm run dev
-npm run build
-npm run preview
+npm run dev        # http://localhost:5173
+npm run build      # sitio estático en dist/
+npm run test:e2e   # arranca su propio servidor en el puerto 5183
 ```
 
-Node 22 recomendado. `dist/` es el sitio estático publicable. El ZIP, la referencia, los scripts y las capturas no se incluyen en el sitio publicado.
+Node 22 recomendado. La primera vez, `npx playwright install chromium`.
 
-## Personalizar contenido
+## Cambiar el contenido
 
-| Archivo | Contenido |
+| Qué | Dónde |
 | --- | --- |
-| `src/data/siteConfig.ts` | Nombre, cargo (separado por ` · `), descripción, email, CV, textos de secciones y endpoint de contacto |
-| `src/data/projects.ts` | Proyectos, descripciones, categorías, tecnologías y URLs |
-| `src/data/skills.ts` | Categorías y tecnologías de ejemplo |
-| `src/data/socials.ts` | GitHub y LinkedIn; Email utiliza `siteConfig.email` |
+| Todo el texto visible, proyectos y skills, en inglés | `src/content/en.ts` |
+| Lo mismo en español (tipado con el tipo de `en.ts`: si falta una clave, no compila) | `src/content/es.ts` |
+| Nombre, email, redes y endpoint del formulario | `src/data/siteConfig.ts` |
 
-Todos los proyectos y perfiles son **placeholders**. Sustituirlos antes de publicar. El CV está oculto por defecto: colocar `cv.pdf` en `public/` y configurar `cvUrl: '/cv.pdf'` para mostrarlo.
+Un proyecto es `{ name, category, description, stack, url?, sourceUrl?, image? }`. Los botones "Ver proyecto" y "Código"
+solo aparecen si hay URL; `image` es una captura opcional servida desde `public/`.
 
-## Arquitectura
+El idioma inicial sale de `localStorage`, luego del idioma del navegador, y si no, inglés.
 
-- `components/`: navegación, botones, paneles, títulos, sprites animados y tarjetas.
-- `sections/`: Home, Projects, Skills y Contact.
-- `data/`: contenido provisional centralizado.
-- `services/contact.ts`: adaptador del formulario, independiente de su presentación.
-- `styles/`: estilos generales, `ui.css` para las nueve piezas y `home.css` para el primer viewport.
-- `data/scenes/world.json`: composición estática, registro de sprites, recortes y categorías de escala.
-- `components/NineSliceSurface.tsx`: nueve celdas de UI con esquinas fijas y texturas repetidas.
-- `components/MapScene.tsx`: capas visuales separadas de los datos de escena.
-- `public/assets/`: únicamente imágenes elegidas o composiciones derivadas.
-- `scripts/prepare-assets.py`: composición reproducible de mapas y ensamblaje de piezas UI.
-- `docs/`: inventario de los 410 PNG, manifiesto de selección, decisiones de arte y capturas.
+## Formulario de contacto
 
-El terreno se repite una sola vez sobre `.world` y continúa bajo todas las secciones y el footer. `SceneRegion` sitúa capas transparentes, sin fondos independientes, alrededor de cada sección. Los datos de `world.json` definen la escena; `generated.json` contiene las dimensiones verificadas y los pocos sprites animados.
+Sin endpoint, el formulario valida y avisa de que no envía nada. Para activarlo, crea un formulario en
+[Formspree](https://formspree.io) y pon su URL en `contactEndpoint` (`https://formspree.io/f/…`). Se envía un POST JSON
+`{ name, email, message }` con timeout y gestión de errores; hay un campo trampa `_gotcha` contra bots.
 
-La UI conserva React, TypeScript y Vite. Hero y Contact combinan el marco enrollado de `Banner` y el centro legible de `RegularPaper`. Projects es un tablón **vertical** WoodTable con cuatro notas de papel. Skills usa slots reales de madera y una barra segmentada como separador decorativo, nunca como porcentaje. Navbar y footer usan madera con interior claro. Los campos del formulario y botones secundarios usan SpecialPaper.
+## El mundo (`src/world/`)
 
-Las nueve piezas tienen dimensiones independientes por eje; las esquinas y los bordes mantienen su escala real aunque se retiren los márgenes vacíos del atlas. El centro se repite. Los botones primarios cambian al atlas Pressed al pulsarlos.
+| Fichero | Responsabilidad |
+| --- | --- |
+| `scenes.ts` | Escenas escritas a mano, 30 tiles de ancho: filas de caracteres (`.` hierba, `~` agua, `T` árbol, `b` arbusto, `r` roca, `o` roca en el agua, `s` tocón), edificios y actores con sus rutas. También los claros 3×3 de los márgenes. |
+| `compose.ts` | Mide dónde están las secciones y compone el mundo: `home` arriba, una franja en el hueco sobre cada sección, la costa al final, claros junto a los paneles y bosque de relleno con semilla fija. |
+| `validate.ts` | Reglas de diseño: nada pisa agua ni atraviesa edificios, los sprites existen, las escenas no se solapan. |
+| `entities.ts` | Comportamientos como guiones (generadores): leñador, minero, constructor, oveja, patrulla, arquero, monje, flecha. |
+| `renderer.ts` | Pinta un frame: hierba, agua, espuma, costa, todo lo demás ordenado por la Y de los pies, nubes. |
+| `WorldCanvas.tsx` | Único contacto con React: canvas fijo, cámara ligada al scroll, pausa y `prefers-reduced-motion`. |
+| `sprites.generated.ts` | Registro de sprites, generado por `scripts/prepare-assets.py`. No se edita. |
 
-## Composición del mapa
+Para cambiar el paisaje se edita `scenes.ts` y se ejecuta `npx playwright test tests/world.spec.ts`: el validador dice
+qué ruta cruza qué. Un portátil de 1440 px enseña las columnas 4–26 y un móvil solo las 9–21 (a media escala), así que
+lo importante de cada franja va en el centro. En móvil la escena de `home` se coloca debajo del pergamino y desplazada
+para que se vea el castillo.
 
-Editar `src/data/scenes/world.json`: fuentes, fotogramas, posiciones y variantes desktop/mobile. Las coordenadas corresponden a la caja visible, no al margen transparente del spritesheet. Se usan monjes, arqueros, lanceros, soldados, aldeanos y ovejas del ZIP. **El Free Pack proporcionado no incluye cerdos**; no se han inventado ni obtenido de otro pack.
+La altura de las franjas la reserva el CSS: `margin-top` de las secciones en `src/styles/global.css`.
 
-```sh
-python3 scripts/prepare-assets.py
-```
+## Assets
 
-El generador comprueba coordenadas enteras, zonas reservadas para UI, cajas visibles de sprites, exclusión del agua y separación de elementos. Solo permite solapamientos de copas de árboles con bases separadas. Ordena los elementos estáticos por la posición Y de su base y genera composiciones WebP sin pérdida. Si encuentra una colisión, termina con un error que identifica los objetos. `docs/scene-validation.json` registra el resultado.
+Arte de **Tiny Swords (Free Pack), de Pixel Frog**. El ZIP original no está en el repositorio porque su licencia no
+permite redistribuirlo; solo se versionan los PNG que la web usa. Para regenerarlos (Python + Pillow) hay que dejar
+`Tiny Swords (Free Pack).zip` en la raíz y ejecutar `python3 scripts/prepare-assets.py`. Detalle en
+`docs/asset-audit.md`. Tipografía Pixelify Sans servida en local.
 
-El navegador mantiene el terreno continuo; la decoración está anclada a las secciones para acompañar la altura del contenido. Por debajo de1440px se utilizan composiciones reducidas debajo de los paneles para que las unidades no queden cortadas en los laterales. Las animaciones CSS tienen pausa y respetan prefers-reduced-motion.
+## Pruebas
 
-## Contacto
+`tests/world.spec.ts` prueba sin navegador el autotile, la composición a varias anchuras y alturas, el validador y
+los comportamientos. `tests/portfolio.spec.ts` comprueba en Chromium: sin overflow ni errores de consola de 1728 a
+320 px, navegación activa, formulario, que el mundo se pinta, se mueve, se congela en pausa y con movimiento reducido,
+cambio y persistencia de idioma, teclado y coste por frame. `tests/visual-review.spec.ts` guarda las capturas de
+`docs/screenshots/`.
 
-Por defecto el formulario valida los campos y explica que no se ha enviado nada. No guarda datos ni simula un envío exitoso.
+Verificado en Chromium. Queda pendiente probar en Safari, Firefox, un lector de pantalla y móviles físicos.
 
-Para conectar un backend, establecer `contactEndpoint` en `siteConfig.ts`. El adaptador envía un POST JSON `{ name, email, message }`, espera un estado HTTP satisfactorio y gestiona errores y timeout. El servidor deberá validar datos, limitar solicitudes y efectuar el envío. No poner credenciales en el frontend.
+## Despliegue
 
-## Assets y tipografía
+Sitio estático: en Vercel basta importar el repositorio (detecta Vite; build `npm run build`, salida `dist`). No hay
+nada específico de Vercel en el código.
 
-Arte de **Tiny Swords — Pixel Frog**, procedente del ZIP proporcionado. Se conservan los colores originales; UI mediante nueve celdas con los espacios del atlas eliminados; las esquinas nunca se estiran. Pixelify Sans se sirve localmente desde `@fontsource/pixelify-sans`; párrafos en fuente de sistema.
-
-Para recomponer assets (solo durante desarrollo, requiere Python + Pillow):
-
-```sh
-python3 scripts/prepare-assets.py
-```
-
-No se genera arte nuevo ni se utiliza la captura de referencia como fondo. Los PNG originales mantienen transparencia; los WebP se comprimen sin pérdida. `image-rendering: pixelated` se aplica al escenario y sus recursos. Las celdas UI conservan escalas coherentes (media escala o cuarto de escala). El mapa conserva resolución nativa y no usa interpolación suave. Los estanques combinan celdas de costa de Tilemap_color2 con Water Background color; su forma se define con filas de tiles en `world.json`. Casas, torres, talleres, recursos, aldeanos y ovejas pertenecen al escenario, nunca a las fichas de proyectos.
-
-## Verificación
-
-Con Vite iniciado:
-
-```sh
-npx playwright install chromium
-npm run test:e2e
-```
-
-Se puede usar un Chromium existente con `CHROMIUM_PATH=/ruta/a/chrome npm run test:e2e`.
-
-Las pruebas recorren 1728×864, 1440×900 y 390×844, además de 1024, 768 y 320px. Comprueban overflow, assets, navegación activa, formulario, pausa, movimiento reducido, acceso por teclado y consola. Comparan píxel a píxel las esquinas de cuatro skins a distintos tamaños y comprueban el sprite pressed y focus-visible. Validan también la lista vertical y las cajas visibles de todas las decoraciones frente a los paneles reales a siete anchuras, incluido1366px. Guarda capturas completas y por sección en `docs/inhabited/`. Playwright solo es dependencia de desarrollo.
-
-La verificación realizada corresponde a Chromium, no a una certificación de accesibilidad ni a una prueba en dispositivos físicos.
-
-## Próximos pasos
-
-1. Sustituir ejemplos por proyectos reales: capturas, casos de estudio, resultados comprobables y CV.
-2. Conectar el formulario, añadir metadatos sociales con identidad definitiva y revisar Safari/Firefox y lector de pantalla antes de publicar.
-
-La auditoría detallada de esta revisión está en `docs/asset-audit.md` y las decisiones y capturas actuales en `docs/inhabited/`. Las capturas de `docs/revision/` y `docs/clean/` corresponden a iteraciones anteriores.
+Diseño y plan en `docs/superpowers/`.

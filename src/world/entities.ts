@@ -62,7 +62,7 @@ export function spawn(actors: PlacedActor[], seed: number): Entity[] {
     const random = rng(seed + i * 101), between = (a: number, b: number) => a + random() * (b - a);
     switch (actor.kind) {
       case 'woodcutter': case 'miner': { const s = WORKER[actor.kind]; return entity(actor.path[0], function* (e) {
-        e.t = between(0, 1);
+        yield wait(e, 'pawnIdle', between(0, 6));   // neighbours must not march in step
         for (;;) {
           yield wait(e, 'pawnIdle', between(1, 2.5));
           yield walk(e, s.out, actor.path[1], 60); yield face(e, actor.look!);

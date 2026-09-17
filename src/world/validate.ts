@@ -1,6 +1,5 @@
 import type { Rect, World } from './compose';
-import { SCENE_COLS } from './scenes';
-import { scenes } from './scenes';
+import { clearings, scenes, CLEARING_COLS, SCENE_COLS } from './scenes';
 import { sprites } from './sprites.generated';
 import { TILE, isLand } from './terrain';
 
@@ -12,6 +11,7 @@ export function validate(world: World): string[] {
   const land = (x: number, y: number) => isLand(world.grid, Math.floor(x / TILE), Math.floor(y / TILE));
   for (const [id, scene] of Object.entries(scenes))
     scene.rows.forEach((row, i) => { if (row.length !== SCENE_COLS) errors.push(`${id}: row ${i} has ${row.length} columns`); });
+  clearings.forEach((scene, n) => { if (scene.rows.some(row => row.length !== CLEARING_COLS)) errors.push(`clearing ${n} is not ${CLEARING_COLS} wide`); });
   world.placed.forEach((scene, i) => {
     const next = world.placed[i + 1];
     if (next && scene.row + scene.rows > next.row) errors.push(`${scene.id} overlaps ${next.id}`);

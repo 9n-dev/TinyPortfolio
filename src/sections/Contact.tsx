@@ -41,7 +41,7 @@ export function Contact() {
         <label htmlFor="name">{c.name}</label>
         <div className="pixel-field"><NineSliceSurface skin="slate" /><input id="name" name="name" autoComplete="name" placeholder={c.namePlaceholder} required maxLength={120} pattern=".*\S.*" /></div>
         <label htmlFor="email">{c.email}</label>
-        <div className="pixel-field"><NineSliceSurface skin="slate" /><input id="email" name="email" type="email" autoComplete="email" placeholder="you@example.com" required maxLength={254} /></div>
+        <div className="pixel-field"><NineSliceSurface skin="slate" /><input id="email" name="email" type="email" autoComplete="email" placeholder={c.emailPlaceholder} required maxLength={254} /></div>
         <label htmlFor="message">{c.message}</label>
         <div className="pixel-field"><NineSliceSurface skin="slate" /><textarea id="message" name="message" rows={4} onInput={event => event.currentTarget.setCustomValidity(event.currentTarget.value.trim() ? '' : c.messageRequired)} placeholder={c.messagePlaceholder} required maxLength={5000} /></div>
         <button className="pixel-button" type="submit" disabled={busy}><NineSliceSurface skin="button" />{busy ? c.sending : c.send} <span aria-hidden="true">↗</span></button>

@@ -31,6 +31,8 @@ main { position: relative; }
 .social-links a:hover { text-decoration: underline; }
 /* The top margin is where a strip of the world shows at full width (6 tiles plus breathing room). */
 .about, .projects, .skills, .contact { max-width: 1040px; margin: 320px auto 0; padding: 56px 40px 72px; }
+/* The home scene is 960px tall: on shorter screens About waits for it to end. */
+.about { margin-top: calc(320px + max(0px, 960px - 100vh)); }
 .section-heading { text-align: center; margin-bottom: 24px; }
 .project-board, .inventory-frame { padding: 30px; }
 .board-intro { padding: 24px 28px; margin-bottom: 20px; }
@@ -98,7 +100,7 @@ main { position: relative; }
   .skill-group:nth-child(even) { border-right: 0; padding-right: 0; padding-left: 24px; }
 }
 @media (max-width: 760px) {
-  .about, .projects, .skills, .contact { margin-top: 136px; padding: 36px 16px 48px; }
+  .about, .projects, .skills, .contact { margin-top: 190px; padding: 36px 16px 48px; }
   .world { padding-bottom: 176px; }
   .project-board, .inventory-frame { padding: 16px; }
   .board-intro { padding: 22px; margin-bottom: 14px; }

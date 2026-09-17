@@ -151,3 +151,14 @@ export const scenes: Record<SceneId, Scene> = {
     actors: [{ kind: 'sheep', path: [[10, 0.8], [16, 1.8]] }, { kind: 'sheep', path: [[10, 0.8], [16, 1.8]] }],
   },
 };
+
+/** Small clearings dropped into the forest margins beside the panels, 3×3 tiles each. */
+export const CLEARING_COLS = 3, CLEARING_ROWS = 3;
+export const clearings: Scene[] = [
+  { rows: ['...', '...', '...'], props: [], actors: [{ kind: 'sheep', path: [[0.5, 0.8], [2.5, 2.7]] }, { kind: 'sheep', path: [[0.5, 0.8], [2.5, 2.7]] }] },
+  { rows: ['...', '...', 'b..'], props: [{ sprite: 'house1', x: 1.6, y: 2.2 }], actors: [] },
+  { rows: ['...', '...', '..r'], props: [{ sprite: 'gold4', x: 1, y: 1.6 }, { sprite: 'gold2', x: 2, y: 2.2 }], actors: [] },
+  { rows: ['.s.', 's..', '..s'], props: [{ sprite: 'woodResource', x: 1.6, y: 1.9 }], actors: [] },
+  { rows: ['...', '...', '...'], props: [{ sprite: 'tower', x: 1.5, y: 2.3 }], actors: [{ kind: 'patrol', unit: 'archer', path: [[0.6, 2.8], [2.5, 2.8]] }] },
+  { rows: ['...', '.b.', '...'], props: [{ sprite: 'house3', x: 1.5, y: 1.9 }], actors: [{ kind: 'patrol', unit: 'pawn', path: [[0.5, 2.6], [2.6, 2.6]] }] },
+];

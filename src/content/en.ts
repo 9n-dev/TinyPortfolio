@@ -49,7 +49,7 @@ export const en = {
   contact: {
     sectionTitle: 'Get in touch', title: "Let's build something together.",
     description: 'Have a project in mind, an interesting challenge, or just want to say hello? Leave a message at the outpost.',
-    formTitle: 'Leave a message', name: 'Name', namePlaceholder: 'Your name', email: 'Email', message: 'Message',
+    formTitle: 'Leave a message', name: 'Name', namePlaceholder: 'Your name', email: 'Email', emailPlaceholder: 'you@example.com', message: 'Message',
     messagePlaceholder: 'Tell me about your idea…', messageRequired: 'Please write a message.', send: 'Send Message', sending: 'Sending…',
     privacy: 'Your details are only used to reply to your message.', demoNotice: 'Demo form — messages are not sent yet.',
     demoResult: 'Your message is ready. This demo is not connected to a mail service, so nothing has been sent.',
