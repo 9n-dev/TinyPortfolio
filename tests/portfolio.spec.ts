@@ -42,15 +42,32 @@ test('navigation marks the section in view', async ({ page }) => {
   }
 });
 
-test('contact form validates and, without an endpoint, says nothing was sent', async ({ page }) => {
+// The form service is always mocked: tests must never send real mail.
+test('contact form validates, posts the message as JSON and confirms', async ({ page }) => {
+  const posted: unknown[] = [];
+  await page.route('https://formspree.io/**', route => { posted.push(route.request().postDataJSON()); return route.fulfill({ status: 200, json: { ok: true } }); });
   await page.goto('/#contact');
   await page.getByRole('button', { name: 'Send Message' }).click();
   await expect(page.locator('.form-status')).toHaveText('');   // native validation stopped it
+  expect(posted).toEqual([]);
   await page.getByLabel('Name', { exact: true }).fill('Test Visitor');
   await page.getByLabel('Email', { exact: true }).fill('visitor@example.com');
   await page.getByLabel('Message', { exact: true }).fill('A useful new project.');
   await page.getByRole('button', { name: 'Send Message' }).click();
-  await expect(page.getByRole('status')).toContainText('nothing has been sent');
+  await expect(page.getByRole('status')).toContainText('has been sent');
+  expect(posted).toEqual([{ name: 'Test Visitor', email: 'visitor@example.com', message: 'A useful new project.' }]);
+  await expect(page.getByLabel('Message', { exact: true })).toHaveValue('');
+});
+
+test('contact form keeps the message and says so when the service fails', async ({ page }) => {
+  await page.route('https://formspree.io/**', route => route.fulfill({ status: 500, json: { error: 'down' } }));
+  await page.goto('/#contact');
+  await page.getByLabel('Name', { exact: true }).fill('Test Visitor');
+  await page.getByLabel('Email', { exact: true }).fill('visitor@example.com');
+  await page.getByLabel('Message', { exact: true }).fill('Still here.');
+  await page.getByRole('button', { name: 'Send Message' }).click();
+  await expect(page.getByRole('status')).toContainText('could not be sent');
+  await expect(page.getByLabel('Message', { exact: true })).toHaveValue('Still here.');
 });
 
 test('the world is painted and moves', async ({ page }) => {

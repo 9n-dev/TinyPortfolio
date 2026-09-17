@@ -11,7 +11,7 @@ La interfaz es la de un RTS en pixel art y, detrás, una aldea de [TinyRTS](http
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178c6?logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-6-646cff?logo=vite&logoColor=white)
 ![Canvas](https://img.shields.io/badge/mundo-Canvas%202D%20propio-e34f26)
-![Playwright](https://img.shields.io/badge/tests-36%20passing-6da55f?logo=playwright&logoColor=white)
+![Playwright](https://img.shields.io/badge/tests-37%20passing-6da55f?logo=playwright&logoColor=white)
 [![Deploy](https://github.com/9n-dev/TinyPortfolio/actions/workflows/pages.yml/badge.svg)](https://github.com/9n-dev/TinyPortfolio/actions/workflows/pages.yml)
 ![License](https://img.shields.io/badge/c%C3%B3digo-MIT-blue)
 
@@ -124,12 +124,13 @@ La altura de las franjas la reserva el `margin-top` de las secciones en `global.
 
 ### Formulario de contacto
 
-Sin endpoint valida y avisa de que no envía nada. Para activarlo, crea un formulario en [Formspree](https://formspree.io)
-y pon su URL en `contactEndpoint`. Envía un POST JSON con timeout y gestión de errores, y lleva un campo trampa contra bots.
+Envía a [Formspree](https://formspree.io): un POST JSON `{ name, email, message }` al `contactEndpoint` de
+`src/data/siteConfig.ts`, con timeout, gestión de errores y un campo trampa contra bots. Con `contactEndpoint: null` el
+formulario valida y avisa de que no envía nada. Los tests simulan el servicio: nunca envían correo real.
 
 ## Pruebas
 
-36 tests con Playwright. Sin navegador: autotile, composición del mundo a 4 anchuras × 3 alturas, validador y
+37 tests con Playwright. Sin navegador: autotile, composición del mundo a 4 anchuras × 3 alturas, validador y
 comportamientos. En Chromium: sin overflow ni errores de consola de 1728 a 320 px, navegación activa, formulario, que el
 mundo se pinta y se mueve, que queda fijo con movimiento reducido, que el canvas hace scroll con la página y cubre
 siempre la pantalla, idioma (cambio, persistencia y detección),

@@ -4,7 +4,7 @@ export const siteConfig = {
   brand: '9n.dev',
   email: 'manuelallegue14@gmail.com',
   /** Formspree form URL (https://formspree.io/f/…). While null the form validates but sends nothing. */
-  contactEndpoint: null as string | null,
+  contactEndpoint: 'https://formspree.io/f/mqpaknnp' as string | null,
   socials: [
     { label: 'GitHub', url: 'https://github.com/9n-dev' },
     { label: 'LinkedIn', url: 'https://www.linkedin.com/in/manuel-allegue-lópez' },
