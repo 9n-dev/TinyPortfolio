@@ -235,7 +235,7 @@ test('el idioma cambia y persiste', async ({ page }) => {
 ```
 
 - [x] `validate(window.__world.world)` en navegador a 1728, 1440, 1024, 768, 390 y 320 px y en ambos idiomas → `[]`.
-- [x] Capturas completas y por sección a 1728×864, 1440×900 y 390×844 en `docs/screenshots/`. Revisarlas a ojo contra `fae6f04b-….png`: densidad de la aldea, bosque cerrado en los bordes, nada cortado por paneles, legibilidad del texto, móvil a escala 0,5. Corregir escenas y repetir hasta que quede bien.
+- [x] Capturas completas y por sección a 1728×864, 1440×900 y 390×844 en `docs/screenshots/`. Revisarlas a ojo contra `docs/reference.png`: densidad de la aldea, bosque cerrado en los bordes, nada cortado por paneles, legibilidad del texto, móvil a escala 0,5. Corregir escenas y repetir hasta que quede bien.
 - [x] Medir tiempo de frame (`performance.now()` alrededor de `step`+`draw`, media y máximo en 300 frames) → media < 4 ms, máximo < 8 ms.
 - [x] `npm run test:e2e` → todo PASS. Commit.
 

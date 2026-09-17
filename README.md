@@ -1,9 +1,84 @@
-# TinyPortfolio
+<div align="center">
 
-Portfolio de Manuel Allegue López con la interfaz del pack **Tiny Swords** (tablones, pergaminos, cintas, botones) y, de
-fondo, una aldea de [TinyRTS](https://github.com/9n-dev/TinyRTS) viva: agua con espuma, bosque que se mece, aldeanos que
-talan y pican, ovejas, patrullas, arqueros tirando a las dianas y nubes. React + TypeScript + Vite, un `<canvas>` 2D
-propio y ninguna dependencia de juego. En español e inglés.
+# 🏰 TinyPortfolio
+
+**Mi portfolio, dentro del mundo de mi propio juego.**<br>
+La interfaz es la de un RTS en pixel art y, detrás, una aldea de [TinyRTS](https://github.com/9n-dev/TinyRTS) sigue con su vida.
+
+### [▶ Verlo en vivo: 9n-dev.github.io/TinyPortfolio](https://9n-dev.github.io/TinyPortfolio/)
+
+![React](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178c6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-6-646cff?logo=vite&logoColor=white)
+![Canvas](https://img.shields.io/badge/mundo-Canvas%202D%20propio-e34f26)
+![Playwright](https://img.shields.io/badge/tests-34%20passing-6da55f?logo=playwright&logoColor=white)
+[![Deploy](https://github.com/9n-dev/TinyPortfolio/actions/workflows/pages.yml/badge.svg)](https://github.com/9n-dev/TinyPortfolio/actions/workflows/pages.yml)
+![License](https://img.shields.io/badge/c%C3%B3digo-MIT-blue)
+
+<img src="docs/media/demo-home.gif" alt="La portada: un pergamino con el nombre sobre una aldea en la que un minero pica oro, las ovejas pastan y los guardias patrullan el castillo" width="720">
+
+</div>
+
+---
+
+## Qué es
+
+Un portfolio de una sola página (inicio, sobre mí, proyectos, skills y contacto) en español e inglés. Los paneles son los
+tablones, pergaminos, cintas y botones del pack **Tiny Swords**, montados pieza a pieza para que las esquinas nunca se
+deformen. El fondo no es una imagen: es un mundo simulado que se pinta en un `<canvas>` y cuya cámara baja con el scroll.
+
+- 🌊 Estanques y costa con espuma animada, rocas en el agua y nubes que pasan.
+- 🌲 Bosque cerrado en los bordes, con cada árbol meciéndose a su ritmo.
+- ⛏️ Mineros que pican oro y vuelven cargados, leñadores que talan y acarrean madera, constructores martilleando.
+- 🐑 Ovejas que pastan, guerreros, lanceros y arqueros de patrulla, monjes que pasean y curan.
+- 🎯 Arqueros que disparan flechas de verdad a las dianas del campo de tiro.
+- 🗺️ Cada sección tiene su escena: castillo y aldea, casas junto al estanque, mina y talleres, cuartel, monasterio junto
+  al lago; y bajo el pie de página el mapa termina en el mar.
+
+Sin motor de juego ni librerías de animación: React, TypeScript, Vite y unas 750 líneas de mundo, escenas incluidas.
+
+<div align="center">
+<img src="docs/media/demo-skills.gif" alt="La franja de Skills: cuartel, torres, una patrulla y dos arqueros disparando a las dianas" width="720">
+</div>
+
+## Capturas
+
+| | |
+| :---: | :---: |
+| <img src="docs/media/desktop-home.png" alt="Portada en escritorio" width="420"><br>Portada | <img src="docs/media/desktop-projects.png" alt="Mina de oro y talleres sobre el tablón de proyectos" width="420"><br>Mina y talleres, antes de Proyectos |
+| <img src="docs/media/desktop-contact.png" alt="Monasterio junto al lago" width="420"><br>Monasterio y lago, antes de Contacto | <img src="docs/media/desktop-shore.png" alt="El pie de página y la costa" width="420"><br>El mapa acaba en el mar |
+
+<div align="center">
+<img src="docs/media/mobile-home.png" alt="Portada en móvil, con el castillo bajo el pergamino" width="250">&nbsp;&nbsp;
+<img src="docs/media/mobile-projects.png" alt="Franja de proyectos en móvil" width="250">
+<br>En móvil el mundo se pinta a media escala y la aldea se recoloca bajo el pergamino.
+</div>
+
+## Cómo funciona el mundo
+
+```mermaid
+flowchart LR
+  A[Secciones de React<br>posición real en la página] --> B[compose.ts<br>escenas a mano + claros + bosque con semilla]
+  S[scenes.ts<br>mapas en ASCII, edificios, rutas] --> B
+  B --> V[validate.ts<br>nadie pisa agua ni cruza edificios]
+  B --> E[entities.ts<br>guiones: talar, picar, patrullar…]
+  E --> R[renderer.ts<br>hierba, agua, espuma, sprites por Y, nubes]
+  B --> R
+  R --> C[(canvas fijo<br>cámara = scroll)]
+```
+
+- **El mapa se adapta a la página, no al revés.** La altura cambia con el idioma, el ancho o el número de proyectos, así
+  que el mundo se compone al cargar a partir de dónde han quedado las secciones: la escena de portada arriba, una franja
+  en el hueco sobre cada sección, la costa al final, claros 3×3 junto a los paneles largos y bosque de relleno con
+  semilla fija (el mismo en cada visita).
+- **Las escenas se escriben como mapas ASCII** (`.` hierba, `~` agua, `T` árbol…) más una lista de edificios y actores
+  con sus rutas. Un validador comprueba que ninguna ruta pisa agua ni atraviesa un edificio; mientras diseñaba cazó a un
+  monje cruzando el monasterio.
+- **Los comportamientos son guiones** con generadores: `ir → trabajar → volver cargado → descansar`. Sin pathfinding:
+  líneas rectas entre puntos elegidos a mano.
+- **El terreno usa el autotile de TinyRTS** (solo bordes convexos, como el tileset) y la espuma va desfasada por casilla.
+- **Barato:** 0,7 ms de script por frame a 1920×1080, 560 KB de sprites. Se detiene con la pestaña oculta, con el botón de
+  pausa y con `prefers-reduced-motion`; el mundo arranca ya presimulado, así que el frame fijo también tiene vida.
 
 ## Desarrollo
 
@@ -12,72 +87,60 @@ npm install
 npm run dev        # http://localhost:5173
 npm run build      # sitio estático en dist/
 npm run test:e2e   # arranca su propio servidor en el puerto 5183
+npm run media      # regenera docs/media (necesita ffmpeg)
 ```
 
-Node 22 recomendado. La primera vez, `npx playwright install chromium`.
+Node 22. La primera vez, `npx playwright install chromium`.
 
-## Cambiar el contenido
+### Estructura
+
+```
+src/
+  world/        el mundo: scenes, compose, validate, entities, renderer, WorldCanvas
+  content/      todo el texto visible: en.ts y es.ts (es tipado con el tipo de en)
+  sections/     Home, About, Projects, Skills, Contact
+  components/   paneles nine-slice, botones, navegación con selector de idioma
+  data/         siteConfig.ts: nombre, email, redes, endpoint del formulario
+  styles/       global.css, ui.css (nine-slice), home.css
+scripts/        prepare-assets.py (extrae los PNG del pack), record-media.mjs
+tests/          world.spec.ts (sin navegador), portfolio.spec.ts, visual-review.spec.ts
+docs/           auditoría de assets, referencia de arte, diseño y plan
+```
+
+### Cambiar el contenido
 
 | Qué | Dónde |
 | --- | --- |
-| Todo el texto visible, proyectos y skills, en inglés | `src/content/en.ts` |
-| Lo mismo en español (tipado con el tipo de `en.ts`: si falta una clave, no compila) | `src/content/es.ts` |
-| Nombre, email, redes y endpoint del formulario | `src/data/siteConfig.ts` |
+| Textos, proyectos y skills | `src/content/en.ts` y `src/content/es.ts` (si falta una clave en español, no compila) |
+| Nombre, email, redes, formulario | `src/data/siteConfig.ts` |
+| El paisaje | `src/world/scenes.ts`, y luego `npx playwright test tests/world.spec.ts` |
 
-Un proyecto es `{ name, category, description, stack, url?, sourceUrl?, image? }`. Los botones "Ver proyecto" y "Código"
-solo aparecen si hay URL; `image` es una captura opcional servida desde `public/`.
+Un proyecto es `{ name, category, description, stack, url?, sourceUrl?, image? }`; los botones solo aparecen si hay URL.
+Un portátil de 1440 px enseña las columnas 4–26 de cada escena y un móvil las 9–21, así que lo importante va en el centro.
+La altura de las franjas la reserva el `margin-top` de las secciones en `global.css`.
 
-El idioma inicial sale de `localStorage`, luego del idioma del navegador, y si no, inglés.
+### Formulario de contacto
 
-## Formulario de contacto
-
-Sin endpoint, el formulario valida y avisa de que no envía nada. Para activarlo, crea un formulario en
-[Formspree](https://formspree.io) y pon su URL en `contactEndpoint` (`https://formspree.io/f/…`). Se envía un POST JSON
-`{ name, email, message }` con timeout y gestión de errores; hay un campo trampa `_gotcha` contra bots.
-
-## El mundo (`src/world/`)
-
-| Fichero | Responsabilidad |
-| --- | --- |
-| `scenes.ts` | Escenas escritas a mano, 30 tiles de ancho: filas de caracteres (`.` hierba, `~` agua, `T` árbol, `b` arbusto, `r` roca, `o` roca en el agua, `s` tocón), edificios y actores con sus rutas. También los claros 3×3 de los márgenes. |
-| `compose.ts` | Mide dónde están las secciones y compone el mundo: `home` arriba, una franja en el hueco sobre cada sección, la costa al final, claros junto a los paneles y bosque de relleno con semilla fija. |
-| `validate.ts` | Reglas de diseño: nada pisa agua ni atraviesa edificios, los sprites existen, las escenas no se solapan. |
-| `entities.ts` | Comportamientos como guiones (generadores): leñador, minero, constructor, oveja, patrulla, arquero, monje, flecha. |
-| `renderer.ts` | Pinta un frame: hierba, agua, espuma, costa, todo lo demás ordenado por la Y de los pies, nubes. |
-| `WorldCanvas.tsx` | Único contacto con React: canvas fijo, cámara ligada al scroll, pausa y `prefers-reduced-motion`. |
-| `sprites.generated.ts` | Registro de sprites, generado por `scripts/prepare-assets.py`. No se edita. |
-
-Para cambiar el paisaje se edita `scenes.ts` y se ejecuta `npx playwright test tests/world.spec.ts`: el validador dice
-qué ruta cruza qué. Un portátil de 1440 px enseña las columnas 4–26 y un móvil solo las 9–21 (a media escala), así que
-lo importante de cada franja va en el centro. En móvil la escena de `home` se coloca debajo del pergamino y desplazada
-para que se vea el castillo.
-
-La altura de las franjas la reserva el CSS: `margin-top` de las secciones en `src/styles/global.css`.
-
-## Assets
-
-Arte de **Tiny Swords (Free Pack), de Pixel Frog**. El ZIP original no está en el repositorio porque su licencia no
-permite redistribuirlo; solo se versionan los PNG que la web usa. Para regenerarlos (Python + Pillow) hay que dejar
-`Tiny Swords (Free Pack).zip` en la raíz y ejecutar `python3 scripts/prepare-assets.py`. Detalle en
-`docs/asset-audit.md`. Tipografía Pixelify Sans servida en local.
+Sin endpoint valida y avisa de que no envía nada. Para activarlo, crea un formulario en [Formspree](https://formspree.io)
+y pon su URL en `contactEndpoint`. Envía un POST JSON con timeout y gestión de errores, y lleva un campo trampa contra bots.
 
 ## Pruebas
 
-`tests/world.spec.ts` prueba sin navegador el autotile, la composición a varias anchuras y alturas, el validador y
-los comportamientos. `tests/portfolio.spec.ts` comprueba en Chromium: sin overflow ni errores de consola de 1728 a
-320 px, navegación activa, formulario, que el mundo se pinta, se mueve, se congela en pausa y con movimiento reducido,
-cambio y persistencia de idioma, teclado y coste por frame. `tests/visual-review.spec.ts` guarda las capturas de
-`docs/screenshots/`.
-
-Verificado en Chromium. Queda pendiente probar en Safari, Firefox, un lector de pantalla y móviles físicos.
+34 tests con Playwright. Sin navegador: autotile, composición del mundo a 4 anchuras × 3 alturas, validador y
+comportamientos. En Chromium: sin overflow ni errores de consola de 1728 a 320 px, navegación activa, formulario, que el
+mundo se pinta, se mueve y se congela en pausa y con movimiento reducido, idioma (cambio, persistencia y detección),
+teclado y coste por frame. Pendiente: Safari, Firefox, lector de pantalla y móviles físicos.
 
 ## Despliegue
 
-Sitio estático. **GitHub Pages**: `.github/workflows/pages.yml` compila y publica en cada push a `main`, con
-`BASE_PATH=/<nombre del repo>/` para que las rutas funcionen bajo `usuario.github.io/<repo>/`. Requiere Pages activado
-con origen "GitHub Actions" y, en el plan gratuito, que el repositorio sea público. **Vercel** o un dominio raíz: basta
-importar el repositorio (build `npm run build`, salida `dist`); sin `BASE_PATH` la base es `/`.
+`.github/workflows/pages.yml` compila y publica en GitHub Pages en cada push a `main`, con `BASE_PATH=/<repo>/`. En Vercel
+o en un dominio raíz no hace falta nada: sin `BASE_PATH` la base es `/`. Las rutas a `public/` pasan por `asset()` o por
+`url()` en CSS, que Vite reescribe.
 
-Las rutas a `public/` pasan por `asset()` (`src/data/siteConfig.ts`) o por `url()` en CSS, que Vite reescribe con la base.
+## Créditos y licencia
 
-Diseño y plan en `docs/superpowers/`.
+- Arte: **[Tiny Swords](https://pixelfrog-assets.itch.io/tiny-swords)** de **Pixel Frog**. El pack original no está en el
+  repositorio; solo los PNG que la web usa. El arte no está cubierto por la licencia de este repo: se rige por la de su autor.
+- Tipografía: [Pixelify Sans](https://fonts.google.com/specimen/Pixelify+Sans) (OFL), servida en local.
+- Código: [MIT](LICENSE).
+- Desarrollado con [Claude Code](https://claude.com/claude-code); el diseño y el plan están en `docs/superpowers/`.

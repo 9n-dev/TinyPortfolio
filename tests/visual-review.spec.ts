@@ -3,7 +3,7 @@ import { validate } from '../src/world/validate';
 
 // Review captures, one per section and viewport. The canvas is fixed, so full-page captures cannot show the world:
 // each capture is a viewport at the scroll position where the section's strip of world and its panel meet.
-const out = process.env.SHOTS_DIR ?? 'docs/screenshots';
+const out = process.env.SHOTS_DIR ?? 'test-results/screenshots';
 const viewports = [[1728, 864], [1440, 900], [1024, 768], [390, 844]] as const;
 const only = process.env.SHOTS_WIDTH;
 

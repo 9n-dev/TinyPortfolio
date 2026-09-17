@@ -15,7 +15,7 @@ guardias y nubes. Bilingüe ES/EN con selector. Sitio estático, desplegable en 
 | Fondo | Mundo simulado en un `<canvas>` 2D propio. Sin Phaser ni dependencias nuevas. |
 | Scroll | Mundo tan alto como la página. Canvas fijo; la cámara sigue el scroll. |
 | Vida | Aldea pacífica, solo Free Pack. Sin combate ni interacción del visitante. |
-| Mapa | Diseñado por Claude con `fae6f04b-….png` como referencia. Formato propio, terreno llano. |
+| Mapa | Diseñado por Claude con `docs/reference.png` como referencia. Formato propio, terreno llano. |
 | Móvil | Misma composición; la cámara se centra en la columna central. |
 | Secciones | Home → About → Projects → Skills → Contact. Sin Experience, sin botón de CV. |
 | Proyectos | TinyRTS, Mario Hacendado (2dMario), RiftLens. Ampliable editando un fichero. |
