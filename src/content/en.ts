@@ -1,7 +1,7 @@
 export type Project = { name: string; category: string; description: string; stack: string[]; url?: string; sourceUrl?: string; image?: string };
 
 export const en = {
-  role: 'FullStack Developer and Data Analyst',
+  role: 'Full-Stack Developer/Data Analyst',
   description: 'I turn ideas into software: robust, scalable applications and services, from the database up to the interface.',
   nav: { home: 'Home', about: 'About', projects: 'Projects', skills: 'Skills', contact: 'Contact', main: 'Main navigation', language: 'Language' },
   skip: 'Skip to content',
@@ -9,7 +9,7 @@ export const en = {
   about: {
     title: 'About me',
     paragraphs: [
-      "I'm a FullStack Developer and Data Analyst based in A Coruña, Spain. At GT Motive I build backend billing processes in PL/SQL, automate operations on Linux and turn business data into reports and dashboards; before that I developed C# and .NET applications and REST APIs there.",
+      "I'm a Full-Stack Developer and Data Analyst based in A Coruña, Spain. At GT Motive I build backend billing processes in PL/SQL, automate operations on Linux and turn business data into reports and dashboards; before that I developed C# and .NET applications and REST APIs there.",
       "I'm always learning. I'm studying Computer Engineering alongside work, hold an MBA in Big Data Analytics, and in my spare time I build games and tools, like the strategy game whose world is running behind this page.",
     ],
     facts: [

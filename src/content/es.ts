@@ -1,7 +1,7 @@
 import type { Content } from './en';
 
 export const es: Content = {
-  role: 'Desarrollador FullStack y Analista de datos',
+  role: 'Desarrollador Full-Stack/Analista de datos',
   description: 'Convierto ideas en software: aplicaciones y servicios robustos y escalables, desde la base de datos hasta la interfaz.',
   nav: { home: 'Inicio', about: 'Sobre mí', projects: 'Proyectos', skills: 'Skills', contact: 'Contacto', main: 'Navegación principal', language: 'Idioma' },
   skip: 'Saltar al contenido',
@@ -9,7 +9,7 @@ export const es: Content = {
   about: {
     title: 'Sobre mí',
     paragraphs: [
-      'Soy Desarrollador FullStack y Analista de datos en A Coruña. En GT Motive desarrollo procesos de facturación en backend con PL/SQL, automatizo operaciones en Linux y convierto datos de negocio en informes y dashboards; antes desarrollé allí aplicaciones y APIs REST con C# y .NET.',
+      'Soy Desarrollador Full-Stack y Analista de datos en A Coruña. En GT Motive desarrollo procesos de facturación en backend con PL/SQL, automatizo operaciones en Linux y convierto datos de negocio en informes y dashboards; antes desarrollé allí aplicaciones y APIs REST con C# y .NET.',
       'Siempre estoy aprendiendo. Estudio Ingeniería Informática mientras trabajo, tengo un MBA en Big Data Analytics y en mi tiempo libre hago juegos y herramientas, como el juego de estrategia cuyo mundo se mueve detrás de esta página.',
     ],
     facts: [

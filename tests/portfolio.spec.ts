@@ -127,7 +127,7 @@ test('language switch translates the page and is remembered', async ({ page }) =
   await page.getByRole('button', { name: 'ES', exact: true }).click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
   await expect(nav(page, 'Proyectos')).toBeVisible();
-  await expect(page).toHaveTitle(/Desarrollador FullStack y Analista de datos/);
+  await expect(page).toHaveTitle(/Desarrollador Full-Stack\/Analista de datos/);
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
   await expect(page.getByRole('heading', { name: 'Sobre mí' })).toBeVisible();
