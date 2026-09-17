@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { NineSliceSurface } from './NineSliceSurface';
 import { siteConfig } from '../data/siteConfig';
+import { useContent } from '../i18n';
 export function Navigation() {
   const [active, setActive] = useState('home');
+  const { lang, setLang, t } = useContent();
   useEffect(() => {
-    const sections = siteConfig.navigation.map(n => document.getElementById(n.id)!);
+    const sections = siteConfig.sections.map(id => document.getElementById(id)!);
     let scheduled = 0;
     const updateActiveSection = () => {
       scheduled = 0;
@@ -31,13 +33,17 @@ export function Navigation() {
     };
   }, []);
   return <header className="navigation-wrap">
-    <nav className="navigation" aria-label="Main navigation">
+    <nav className="navigation" aria-label={t.nav.main}>
       <NineSliceSurface skin="wood" />
       <div className="nav-rail"><NineSliceSurface skin="paper" />
       <a className="brand" href="#home" aria-label={`${siteConfig.name} — Home`}>{siteConfig.name}</a>
       <div className="nav-links">
-        {siteConfig.navigation.map(n => <a key={n.id} href={`#${n.id}`}
-          aria-current={active === n.id ? 'location' : undefined}>{n.label}</a>)}
+        {siteConfig.sections.map(id => <a key={id} href={`#${id}`}
+          aria-current={active === id ? 'location' : undefined}>{t.nav[id]}</a>)}
+      </div>
+      <div className="language" role="group" aria-label={t.nav.language}>
+        {(['es', 'en'] as const).map(code => <button key={code} type="button" lang={code} aria-pressed={lang === code}
+          onClick={() => setLang(code)}>{code.toUpperCase()}</button>)}
       </div>
       </div>
     </nav>

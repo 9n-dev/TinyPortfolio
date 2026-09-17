@@ -6,4 +6,5 @@ import './styles/global.css';
 import './styles/ui.css';
 import './styles/home.css';
 import App from './App';
-ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><App/></React.StrictMode>);
+import { LanguageProvider } from './i18n';
+ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><LanguageProvider><App/></LanguageProvider></React.StrictMode>);

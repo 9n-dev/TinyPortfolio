@@ -1,2 +1,8 @@
 import { defineConfig } from '@playwright/test';
-export default defineConfig({testDir:'./tests',use:{baseURL:'http://127.0.0.1:5173',launchOptions:process.env.CHROMIUM_PATH ? {executablePath:process.env.CHROMIUM_PATH} : {},headless:true},reporter:'list',workers:1});
+// Own port: 5173 is often taken by another project on this machine.
+const url = 'http://127.0.0.1:5183';
+export default defineConfig({
+  testDir: './tests', reporter: 'list', workers: 1,
+  use: { baseURL: url, headless: true, launchOptions: process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {} },
+  webServer: { command: 'npm run dev -- --port 5183 --strictPort', url, reuseExistingServer: true },
+});

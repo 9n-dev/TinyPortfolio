@@ -14,6 +14,7 @@ export type Entity = {
 const UNIT = {
   warrior: { run: 'warriorRun', rest: 'warriorGuard', speed: 50 },
   lancer: { run: 'lancerRun', rest: 'lancerIdle', speed: 50 },
+  archer: { run: 'archerRun', rest: 'archerIdle', speed: 50 },
   pawn: { run: 'pawnRun', rest: 'pawnIdle', speed: 55 },
 } as const;
 const WORKER = {

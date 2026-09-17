@@ -1,16 +1,14 @@
-import { SceneRegion } from '../components/MapScene';
-import { projects } from '../data/projects';
-import { siteConfig } from '../data/siteConfig';
 import { PixelPanel, SectionTitle } from '../components/PixelUI';
 import { ProjectCard } from '../components/ProjectCard';
+import { useContent } from '../i18n';
 
 export function Projects() {
+  const { t } = useContent();
   return <section id="projects" className="section projects" aria-labelledby="projects-title">
-    <SceneRegion region="projects" />
-    <SectionTitle id="projects-title" title={siteConfig.projects.title} />
+    <SectionTitle id="projects-title" title={t.projects.title} />
     <PixelPanel skin="wood" className="project-board">
-      <PixelPanel className="board-intro"><p>{siteConfig.projects.description}</p></PixelPanel>
-      <ol className="project-list">{projects.map((project, index) => <li key={project.name}><ProjectCard project={project} index={index} /></li>)}</ol>
+      <PixelPanel className="board-intro"><p>{t.projects.intro}</p></PixelPanel>
+      <ol className="project-list">{t.projects.list.map((project, index) => <li key={project.name}><ProjectCard project={project} index={index} /></li>)}</ol>
     </PixelPanel>
   </section>;
 }

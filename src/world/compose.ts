@@ -36,7 +36,7 @@ const cellRandom = (col: number, row: number, salt: number) => rng((col * 738560
 export function compose(sections: SectionBox[], worldW: number, worldH: number): World {
   const cols = Math.max(SCENE_COLS, Math.ceil(worldW / TILE));
   const rows = Math.ceil(worldH / TILE);
-  const off = Math.floor((cols - SCENE_COLS) / 2);
+  const base = Math.floor((cols - SCENE_COLS) / 2);
   const cells = Array.from({ length: rows }, () => Array<string>(cols).fill('.'));
   const world: World = { cols, rows, grid: [], props: [], actors: [], clouds: [], placed: [] };
   const busy = new Set<number>();   // cells the filler forest keeps clear
@@ -46,7 +46,7 @@ export function compose(sections: SectionBox[], worldW: number, worldH: number):
   const legend = (char: string, c: number, r: number) => {
     const variants = LEGEND[char];
     if (!variants) return;
-    const pick = cellRandom(c - off, r, 1), jitter = char === 'T' ? cellRandom(c - off, r, 2) - 0.5 : 0;
+    const pick = cellRandom(c - base, r, 1), jitter = char === 'T' ? cellRandom(c - base, r, 2) - 0.5 : 0;
     put(variants[Math.floor(pick * variants.length)], Math.round((c + 0.5 + jitter * 0.4) * TILE),
       Math.round((r + (char === 'o' ? 0.75 : 0.85) + jitter * 0.2) * TILE), pick);
   };
@@ -54,17 +54,22 @@ export function compose(sections: SectionBox[], worldW: number, worldH: number):
   // Scenes: home on top, one strip centred in the gap above each later section, the shore at the bottom.
   const top = (s: SectionBox) => Math.min(...s.rects.map(r => r.y));
   const bottom = (s: SectionBox) => Math.max(...s.rects.map(r => r.y + r.h));
-  const wanted: { id: SceneId; row: number }[] = [];
+  const wanted: { id: SceneId; row: number; shift?: number }[] = [];
+  // Stacked layout (phones): the hero panel is centred and hides the home scene, so the scene moves below it
+  // and slides left until the village, not the hole left for the panel, is what the screen shows.
+  const hero = sections[0]?.rects[0];
+  const stacked = !!hero && Math.abs(hero.x + hero.w / 2 - cols * TILE / 2) < 50;
   sections.forEach((section, i) => {
     if (!(section.id in scenes)) return;
     const id = section.id as SceneId;
     const middle = i === 0 ? 0 : (bottom(sections[i - 1]) + top(section)) / 2 / TILE;
-    wanted.push({ id, row: i === 0 ? 0 : Math.round(middle - scenes[id].rows.length / 2) });
+    if (i === 0 && stacked) wanted.push({ id, row: Math.ceil((hero.y + hero.h) / TILE) - 3, shift: -6 });
+    else wanted.push({ id, row: i === 0 ? 0 : Math.round(middle - scenes[id].rows.length / 2) });
   });
   wanted.push({ id: 'shore', row: rows - scenes.shore.rows.length });
   let free = 0;
-  for (const { id, row: wantedRow } of wanted) {
-    const scene = scenes[id], row = Math.max(wantedRow, free);
+  for (const { id, row: wantedRow, shift = 0 } of wanted) {
+    const scene = scenes[id], row = Math.max(wantedRow, free), off = base + shift;
     if (row + scene.rows.length > rows) continue;   // page too short for it
     free = row + scene.rows.length;
     world.placed.push({ id, row, rows: scene.rows.length });
@@ -87,15 +92,15 @@ export function compose(sections: SectionBox[], worldW: number, worldH: number):
   for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
     if (busy.has(key(c, r)) || !isLand(world.grid, c, r) || !isLand(world.grid, c, r + 1)) continue;
     const edge = Math.abs(c + 0.5 - cols / 2) / (SCENE_COLS / 2);
-    const chance = cellRandom(c - off, r, 4);
-    if (chance < Math.min(0.92, (edge - 0.62) * 2.4)) legend('T', c, r);
+    const chance = cellRandom(c - base, r, 4);
+    if (chance < Math.min(0.92, (edge - 0.6) * 4)) legend('T', c, r);
     else if (edge > 0.58 && chance > 0.965) legend(chance > 0.985 ? 'r' : 'b', c, r);
   }
   world.props.sort((a, b) => a.y - b.y);
 
   const random = rng(rows);
-  for (let i = 0; i < Math.max(2, Math.round(rows / 10)); i++)
+  for (let i = 0; i < Math.max(2, Math.round(rows / 16)); i++)
     world.clouds.push({ sprite: `cloud${1 + Math.floor(random() * 8)}` as SpriteId, x: random() * cols * TILE,
-      y: (i + random()) * 10 * TILE, speed: 5 + random() * 8 });
+      y: (i + random()) * 16 * TILE, speed: 14 + random() * 12 });
   return world;
 }

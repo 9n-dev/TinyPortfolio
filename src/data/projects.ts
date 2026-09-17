@@ -1,7 +1,0 @@
-export type Project = { name: string; category: string; description: string; stack: string[]; url: string; sourceUrl: string };
-export const projects: Project[] = [
-  { name: 'Project Alpha', category: 'Full-Stack Web Application', description: 'A shared workspace that brings projects, tasks and team collaboration into one place.', stack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'], url: 'https://example.com/alpha', sourceUrl: 'https://github.com/your-username/project-alpha' },
-  { name: 'Project Beta', category: 'Analytics Dashboard', description: 'From scattered sales data to clear, interactive insights that support better decisions.', stack: ['Python', 'SQL', 'React', 'Recharts'], url: 'https://example.com/beta', sourceUrl: 'https://github.com/your-username/project-beta' },
-  { name: 'Project Gamma', category: 'REST API Platform', description: 'A dependable backend for an inventory system, with authentication and documented endpoints.', stack: ['Node.js', 'Express', 'PostgreSQL', 'Docker'], url: 'https://example.com/gamma', sourceUrl: 'https://github.com/your-username/project-gamma' },
-  { name: 'Project Delta', category: 'Data Visualization Tool', description: 'An interactive explorer that turns open datasets into accessible, meaningful stories.', stack: ['Python', 'Pandas', 'TypeScript', 'D3.js'], url: 'https://example.com/delta', sourceUrl: 'https://github.com/your-username/project-delta' },
-];
