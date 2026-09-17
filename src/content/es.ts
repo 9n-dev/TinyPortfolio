@@ -43,7 +43,7 @@ export const es: Content = {
       { name: 'Frontend', icon: '05', description: 'Interfaces que se sienten bien.', technologies: ['React', 'TypeScript', 'JavaScript', 'HTML y CSS', 'Angular'] },
       { name: 'Backend', icon: '06', description: 'Cimientos sólidos por debajo.', technologies: ['C# / .NET', 'Python / Django', 'Node.js', 'Java'] },
       { name: 'Datos', icon: '03', description: 'Que los números cuenten algo.', technologies: ['SQL y PL/SQL', 'SQL Server', 'BI e IBM Cognos', 'MongoDB'] },
-      { name: 'DevOps y herramientas', icon: '10', description: 'Un flujo de trabajo fiable.', technologies: ['Linux', 'Bash', 'Docker', 'Git y GitHub', 'Azure DevOps'] },
+      { name: 'DevOps', icon: '10', description: 'Un flujo de trabajo fiable.', technologies: ['Linux', 'Bash', 'Docker', 'Git y GitHub', 'Azure DevOps'] },
     ],
   },
   contact: {

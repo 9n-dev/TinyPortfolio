@@ -43,7 +43,7 @@ export const en = {
       { name: 'Frontend', icon: '05', description: 'Interfaces that feel right.', technologies: ['React', 'TypeScript', 'JavaScript', 'HTML & CSS', 'Angular'] },
       { name: 'Backend', icon: '06', description: 'Solid foundations underneath.', technologies: ['C# / .NET', 'Python / Django', 'Node.js', 'Java'] },
       { name: 'Data', icon: '03', description: 'Make the numbers tell a story.', technologies: ['SQL & PL/SQL', 'SQL Server', 'BI & IBM Cognos', 'MongoDB'] },
-      { name: 'DevOps & Tools', icon: '10', description: 'A dependable workflow.', technologies: ['Linux', 'Bash', 'Docker', 'Git & GitHub', 'Azure DevOps'] },
+      { name: 'DevOps', icon: '10', description: 'A dependable workflow.', technologies: ['Linux', 'Bash', 'Docker', 'Git & GitHub', 'Azure DevOps'] },
     ],
   },
   contact: {

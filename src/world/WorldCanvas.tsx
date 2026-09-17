@@ -41,6 +41,8 @@ export function WorldCanvas({ paused }: { paused: boolean }) {
         layout = signature;
         world = compose(boxes, worldW, worldH);
         entities = spawn(world.actors, 1);
+        // Start mid-day, not at dawn: nobody should be found stacked at their doorstep, least of all in a still frame.
+        for (let i = 0; i < 900; i++) step(entities, 0.05);
         Object.assign(window, { __world: { world, entities, costs } });   // read by the end-to-end tests
       }
       dirty = true;
