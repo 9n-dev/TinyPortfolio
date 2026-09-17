@@ -2,7 +2,7 @@ import { useContent } from '../i18n';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { NineSliceSurface } from '../components/NineSliceSurface';
-import { siteConfig } from '../data/siteConfig';
+import { asset, siteConfig } from '../data/siteConfig';
 import { PixelPanel, SectionTitle } from '../components/PixelUI';
 import { SocialLinks } from '../components/SocialLinks';
 import { sendContact } from '../services/contact';
@@ -36,7 +36,7 @@ export function Contact() {
       </div>
       <form onSubmit={submit} aria-describedby="form-notice">
         <NineSliceSurface skin="paper" />
-        <div className="form-heading"><img src="/assets/ui/Icon_02.png" width="32" height="32" alt="" /><h3>{c.formTitle}</h3></div>
+        <div className="form-heading"><img src={asset('assets/ui/Icon_02.png')} width="32" height="32" alt="" /><h3>{c.formTitle}</h3></div>
         <input className="gotcha" name="_gotcha" tabIndex={-1} autoComplete="off" aria-hidden="true" />
         <label htmlFor="name">{c.name}</label>
         <div className="pixel-field"><NineSliceSurface skin="slate" /><input id="name" name="name" autoComplete="name" placeholder={c.namePlaceholder} required maxLength={120} pattern=".*\S.*" /></div>

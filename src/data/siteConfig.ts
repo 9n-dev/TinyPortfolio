@@ -11,3 +11,6 @@ export const siteConfig = {
   ],
   sections: ['home', 'about', 'projects', 'skills', 'contact'] as const,
 };
+
+/** URL of a file in public/, wherever the site is mounted (GitHub Pages serves it under /TinyPortfolio/). */
+export const asset = (path: string) => import.meta.env.BASE_URL + path;

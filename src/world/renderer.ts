@@ -16,7 +16,7 @@ export function loadImages(): Promise<Images> {
     const image = new Image();
     image.onload = () => { images[id] = image; resolve(); };
     image.onerror = () => { console.warn(`World sprite failed to load: ${sprites[id].src}`); resolve(); };
-    image.src = sprites[id].src;
+    image.src = import.meta.env.BASE_URL + sprites[id].src;
   }))).then(() => images);
 }
 

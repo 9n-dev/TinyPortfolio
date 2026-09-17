@@ -73,7 +73,11 @@ Verificado en Chromium. Queda pendiente probar en Safari, Firefox, un lector de 
 
 ## Despliegue
 
-Sitio estático: en Vercel basta importar el repositorio (detecta Vite; build `npm run build`, salida `dist`). No hay
-nada específico de Vercel en el código.
+Sitio estático. **GitHub Pages**: `.github/workflows/pages.yml` compila y publica en cada push a `main`, con
+`BASE_PATH=/<nombre del repo>/` para que las rutas funcionen bajo `usuario.github.io/<repo>/`. Requiere Pages activado
+con origen "GitHub Actions" y, en el plan gratuito, que el repositorio sea público. **Vercel** o un dominio raíz: basta
+importar el repositorio (build `npm run build`, salida `dist`); sin `BASE_PATH` la base es `/`.
+
+Las rutas a `public/` pasan por `asset()` (`src/data/siteConfig.ts`) o por `url()` en CSS, que Vite reescribe con la base.
 
 Diseño y plan en `docs/superpowers/`.

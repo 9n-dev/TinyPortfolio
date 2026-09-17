@@ -125,7 +125,7 @@ for key, (source, fw, fh, fps) in WORLD.items():
     assert image.width % fw == 0 and image.height == fh, (key, image.size)
     save(image, f'world/{key}.png', source, 'world sprite')
     x0, y0, x1, y1 = image.crop((0, 0, fw, fh)).getbbox()
-    registry[key] = dict(src=f'/assets/world/{key}.png', frameW=fw, frameH=fh, frames=image.width // fw, fps=fps,
+    registry[key] = dict(src=f'assets/world/{key}.png', frameW=fw, frameH=fh, frames=image.width // fw, fps=fps,
                          # Units swap sheets per state: a centred X keeps them from jittering sideways.
                          anchorX=fw // 2 if source.startswith((U, R + 'Meat')) else (x0 + x1) // 2, anchorY=y1, box=[x0, y0, x1, y1])
 source = UI + 'Human Avatars/Avatars_01.png'
