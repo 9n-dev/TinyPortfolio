@@ -1,0 +1,1787 @@
+{
+  "home": {
+    "desktop": {
+      "width": 1728,
+      "height": 864,
+      "items": [
+        {
+          "id": "tree1-0",
+          "asset": "tree1",
+          "x": -28,
+          "y": -50,
+          "bounds": [
+            -28,
+            -50,
+            121,
+            190
+          ],
+          "depth": 140
+        },
+        {
+          "id": "tree2-1",
+          "asset": "tree2",
+          "x": 112,
+          "y": -106,
+          "bounds": [
+            112,
+            -106,
+            108,
+            244
+          ],
+          "depth": 138
+        },
+        {
+          "id": "tree3-2",
+          "asset": "tree3",
+          "x": 230,
+          "y": -50,
+          "bounds": [
+            230,
+            -50,
+            93,
+            147
+          ],
+          "depth": 97
+        },
+        {
+          "id": "tree4-3",
+          "asset": "tree4",
+          "x": 132,
+          "y": 84,
+          "bounds": [
+            132,
+            84,
+            81,
+            122
+          ],
+          "depth": 206
+        },
+        {
+          "id": "tree3-4",
+          "asset": "tree3",
+          "x": 164,
+          "y": 134,
+          "bounds": [
+            164,
+            134,
+            93,
+            147
+          ],
+          "depth": 281
+        },
+        {
+          "id": "tree4-5",
+          "asset": "tree4",
+          "x": 348,
+          "y": 62,
+          "bounds": [
+            348,
+            62,
+            81,
+            122
+          ],
+          "depth": 184
+        },
+        {
+          "id": "tree2-6",
+          "asset": "tree2",
+          "x": -32,
+          "y": 176,
+          "bounds": [
+            -32,
+            176,
+            108,
+            244
+          ],
+          "depth": 420
+        },
+        {
+          "id": "tree1-7",
+          "asset": "tree1",
+          "x": 20,
+          "y": 400,
+          "bounds": [
+            20,
+            400,
+            121,
+            190
+          ],
+          "depth": 590
+        },
+        {
+          "id": "tree4-8",
+          "asset": "tree4",
+          "x": 76,
+          "y": 700,
+          "bounds": [
+            76,
+            700,
+            81,
+            122
+          ],
+          "depth": 822
+        },
+        {
+          "id": "tree2-9",
+          "asset": "tree2",
+          "x": 350,
+          "y": 786,
+          "bounds": [
+            350,
+            786,
+            108,
+            244
+          ],
+          "depth": 1030
+        },
+        {
+          "id": "tree1-10",
+          "asset": "tree1",
+          "x": -42,
+          "y": 762,
+          "bounds": [
+            -42,
+            762,
+            121,
+            190
+          ],
+          "depth": 952
+        },
+        {
+          "id": "tree2-11",
+          "asset": "tree2",
+          "x": 1420,
+          "y": -138,
+          "bounds": [
+            1420,
+            -138,
+            108,
+            244
+          ],
+          "depth": 106
+        },
+        {
+          "id": "tree1-12",
+          "asset": "tree1",
+          "x": 1552,
+          "y": -30,
+          "bounds": [
+            1552,
+            -30,
+            121,
+            190
+          ],
+          "depth": 160
+        },
+        {
+          "id": "tree4-13",
+          "asset": "tree4",
+          "x": 1504,
+          "y": 136,
+          "bounds": [
+            1504,
+            136,
+            81,
+            122
+          ],
+          "depth": 258
+        },
+        {
+          "id": "tree2-14",
+          "asset": "tree2",
+          "x": 1620,
+          "y": 220,
+          "bounds": [
+            1620,
+            220,
+            108,
+            244
+          ],
+          "depth": 464
+        },
+        {
+          "id": "tree3-15",
+          "asset": "tree3",
+          "x": 1550,
+          "y": 532,
+          "bounds": [
+            1550,
+            532,
+            93,
+            147
+          ],
+          "depth": 679
+        },
+        {
+          "id": "tree2-16",
+          "asset": "tree2",
+          "x": 1660,
+          "y": 662,
+          "bounds": [
+            1660,
+            662,
+            108,
+            244
+          ],
+          "depth": 906
+        },
+        {
+          "id": "tree4-17",
+          "asset": "tree4",
+          "x": 1476,
+          "y": 732,
+          "bounds": [
+            1476,
+            732,
+            81,
+            122
+          ],
+          "depth": 854
+        },
+        {
+          "id": "tree3-18",
+          "asset": "tree3",
+          "x": 1100,
+          "y": 130,
+          "bounds": [
+            1100,
+            130,
+            93,
+            147
+          ],
+          "depth": 277
+        },
+        {
+          "id": "house1-19",
+          "asset": "house1",
+          "x": 266,
+          "y": 278,
+          "bounds": [
+            266,
+            278,
+            112,
+            157
+          ],
+          "depth": 435
+        },
+        {
+          "id": "villager-20",
+          "asset": "villager",
+          "x": 290,
+          "y": 464,
+          "bounds": [
+            290,
+            464,
+            58,
+            74
+          ],
+          "depth": 538
+        },
+        {
+          "id": "gold-21",
+          "asset": "gold",
+          "x": 374,
+          "y": 472,
+          "bounds": [
+            374,
+            472,
+            58,
+            52
+          ],
+          "depth": 524
+        },
+        {
+          "id": "castle-22",
+          "asset": "castle",
+          "x": 992,
+          "y": 446,
+          "bounds": [
+            992,
+            446,
+            312,
+            208
+          ],
+          "depth": 654
+        },
+        {
+          "id": "house-23",
+          "asset": "house",
+          "x": 1228,
+          "y": 256,
+          "bounds": [
+            1228,
+            256,
+            128,
+            155
+          ],
+          "depth": 411
+        },
+        {
+          "id": "tower-24",
+          "asset": "tower",
+          "x": 1402,
+          "y": 260,
+          "bounds": [
+            1402,
+            260,
+            120,
+            184
+          ],
+          "depth": 444
+        },
+        {
+          "id": "house3-25",
+          "asset": "house3",
+          "x": 1304,
+          "y": 648,
+          "bounds": [
+            1304,
+            648,
+            122,
+            135
+          ],
+          "depth": 783
+        },
+        {
+          "id": "guard-26",
+          "asset": "guard",
+          "x": 1116,
+          "y": 666,
+          "animate": true,
+          "bounds": [
+            1116,
+            666,
+            84,
+            89
+          ],
+          "depth": 755
+        },
+        {
+          "id": "lancer-27",
+          "asset": "lancer",
+          "x": 1314,
+          "y": 452,
+          "bounds": [
+            1314,
+            452,
+            70,
+            150
+          ],
+          "depth": 602
+        },
+        {
+          "id": "archer-28",
+          "asset": "archer",
+          "x": 1428,
+          "y": 474,
+          "bounds": [
+            1428,
+            474,
+            72,
+            89
+          ],
+          "depth": 563
+        },
+        {
+          "id": "sheep-29",
+          "asset": "sheep",
+          "x": 474,
+          "y": 658,
+          "animate": true,
+          "bounds": [
+            474,
+            658,
+            45,
+            44
+          ],
+          "depth": 702
+        },
+        {
+          "id": "sheep-30",
+          "asset": "sheep",
+          "x": 552,
+          "y": 724,
+          "bounds": [
+            552,
+            724,
+            45,
+            44
+          ],
+          "depth": 768
+        },
+        {
+          "id": "sheep-31",
+          "asset": "sheep",
+          "x": 494,
+          "y": 772,
+          "bounds": [
+            494,
+            772,
+            45,
+            44
+          ],
+          "depth": 816
+        },
+        {
+          "id": "rock1-32",
+          "asset": "rock1",
+          "x": 1070,
+          "y": 358,
+          "bounds": [
+            1070,
+            358,
+            32,
+            26
+          ],
+          "depth": 384
+        },
+        {
+          "id": "bush3-33",
+          "asset": "bush3",
+          "x": 892,
+          "y": 616,
+          "bounds": [
+            892,
+            616,
+            79,
+            59
+          ],
+          "depth": 675
+        },
+        {
+          "id": "bush1-34",
+          "asset": "bush1",
+          "x": 1444,
+          "y": 648,
+          "bounds": [
+            1444,
+            648,
+            67,
+            46
+          ],
+          "depth": 694
+        },
+        {
+          "id": "bush2-35",
+          "asset": "bush2",
+          "x": 434,
+          "y": 602,
+          "bounds": [
+            434,
+            602,
+            46,
+            34
+          ],
+          "depth": 636
+        },
+        {
+          "id": "waterRock-36",
+          "asset": "waterRock",
+          "x": 276,
+          "y": 656,
+          "bounds": [
+            276,
+            656,
+            41,
+            29
+          ],
+          "depth": 685
+        },
+        {
+          "id": "rock2-37",
+          "asset": "rock2",
+          "x": 206,
+          "y": 792,
+          "bounds": [
+            206,
+            792,
+            50,
+            36
+          ],
+          "depth": 828
+        }
+      ],
+      "safeAreas": [
+        [
+          436,
+          152,
+          540,
+          432
+        ],
+        [
+          752,
+          754,
+          352,
+          110
+        ]
+      ],
+      "animations": [
+        {
+          "id": "sheep-29",
+          "asset": "sheep",
+          "x": 474,
+          "y": 658,
+          "animate": true,
+          "bounds": [
+            474,
+            658,
+            45,
+            44
+          ],
+          "depth": 702,
+          "width": 45,
+          "height": 44,
+          "frames": 6
+        },
+        {
+          "id": "guard-26",
+          "asset": "guard",
+          "x": 1116,
+          "y": 666,
+          "animate": true,
+          "bounds": [
+            1116,
+            666,
+            84,
+            89
+          ],
+          "depth": 755,
+          "width": 84,
+          "height": 89,
+          "frames": 8
+        }
+      ]
+    },
+    "mobile": {
+      "width": 640,
+      "height": 340,
+      "items": [
+        {
+          "id": "castle-0",
+          "asset": "castle",
+          "x": 144,
+          "y": 0,
+          "bounds": [
+            144,
+            0,
+            312,
+            208
+          ],
+          "depth": 208
+        },
+        {
+          "id": "guard-1",
+          "asset": "guard",
+          "x": 370,
+          "y": 224,
+          "animate": true,
+          "bounds": [
+            370,
+            224,
+            84,
+            89
+          ],
+          "depth": 313
+        },
+        {
+          "id": "sheep-2",
+          "asset": "sheep",
+          "x": 228,
+          "y": 258,
+          "bounds": [
+            228,
+            258,
+            45,
+            44
+          ],
+          "depth": 302
+        },
+        {
+          "id": "house-3",
+          "asset": "house",
+          "x": 498,
+          "y": 72,
+          "bounds": [
+            498,
+            72,
+            128,
+            155
+          ],
+          "depth": 227
+        },
+        {
+          "id": "tree3-4",
+          "asset": "tree3",
+          "x": 50,
+          "y": 82,
+          "bounds": [
+            50,
+            82,
+            93,
+            147
+          ],
+          "depth": 229
+        },
+        {
+          "id": "bush2-5",
+          "asset": "bush2",
+          "x": 470,
+          "y": 282,
+          "bounds": [
+            470,
+            282,
+            46,
+            34
+          ],
+          "depth": 316
+        }
+      ],
+      "safeAreas": [],
+      "animations": [
+        {
+          "id": "guard-1",
+          "asset": "guard",
+          "x": 370,
+          "y": 224,
+          "animate": true,
+          "bounds": [
+            370,
+            224,
+            84,
+            89
+          ],
+          "depth": 313,
+          "width": 84,
+          "height": 89,
+          "frames": 8
+        }
+      ]
+    }
+  },
+  "projects": {
+    "desktop": {
+      "width": 1728,
+      "height": 1380,
+      "items": [
+        {
+          "id": "tree1-0",
+          "asset": "tree1",
+          "x": -18,
+          "y": -36,
+          "bounds": [
+            -18,
+            -36,
+            121,
+            190
+          ],
+          "depth": 154
+        },
+        {
+          "id": "tree3-1",
+          "asset": "tree3",
+          "x": 142,
+          "y": -30,
+          "bounds": [
+            142,
+            -30,
+            93,
+            147
+          ],
+          "depth": 117
+        },
+        {
+          "id": "house3-2",
+          "asset": "house3",
+          "x": 160,
+          "y": 168,
+          "bounds": [
+            160,
+            168,
+            122,
+            135
+          ],
+          "depth": 303
+        },
+        {
+          "id": "villager-3",
+          "asset": "villager",
+          "x": 200,
+          "y": 324,
+          "bounds": [
+            200,
+            324,
+            58,
+            74
+          ],
+          "depth": 398
+        },
+        {
+          "id": "sheep-4",
+          "asset": "sheep",
+          "x": 290,
+          "y": 406,
+          "bounds": [
+            290,
+            406,
+            45,
+            44
+          ],
+          "depth": 450
+        },
+        {
+          "id": "bush2-5",
+          "asset": "bush2",
+          "x": 132,
+          "y": 350,
+          "bounds": [
+            132,
+            350,
+            46,
+            34
+          ],
+          "depth": 384
+        },
+        {
+          "id": "archery-6",
+          "asset": "archery",
+          "x": 1424,
+          "y": 120,
+          "bounds": [
+            1424,
+            120,
+            183,
+            179
+          ],
+          "depth": 299
+        },
+        {
+          "id": "archer-7",
+          "asset": "archer",
+          "x": 1454,
+          "y": 330,
+          "animate": true,
+          "bounds": [
+            1454,
+            330,
+            72,
+            89
+          ],
+          "depth": 419
+        },
+        {
+          "id": "lancer-8",
+          "asset": "lancer",
+          "x": 1506,
+          "y": 422,
+          "bounds": [
+            1506,
+            422,
+            70,
+            150
+          ],
+          "depth": 572
+        },
+        {
+          "id": "bush1-9",
+          "asset": "bush1",
+          "x": 1400,
+          "y": 500,
+          "bounds": [
+            1400,
+            500,
+            67,
+            46
+          ],
+          "depth": 546
+        },
+        {
+          "id": "tree2-10",
+          "asset": "tree2",
+          "x": 30,
+          "y": 428,
+          "bounds": [
+            30,
+            428,
+            108,
+            244
+          ],
+          "depth": 672
+        },
+        {
+          "id": "tree4-11",
+          "asset": "tree4",
+          "x": 208,
+          "y": 478,
+          "bounds": [
+            208,
+            478,
+            81,
+            122
+          ],
+          "depth": 600
+        },
+        {
+          "id": "house-12",
+          "asset": "house",
+          "x": 160,
+          "y": 670,
+          "bounds": [
+            160,
+            670,
+            128,
+            155
+          ],
+          "depth": 825
+        },
+        {
+          "id": "sheep-13",
+          "asset": "sheep",
+          "x": 240,
+          "y": 838,
+          "bounds": [
+            240,
+            838,
+            45,
+            44
+          ],
+          "depth": 882
+        },
+        {
+          "id": "sheep-14",
+          "asset": "sheep",
+          "x": 254,
+          "y": 900,
+          "bounds": [
+            254,
+            900,
+            45,
+            44
+          ],
+          "depth": 944
+        },
+        {
+          "id": "rock2-15",
+          "asset": "rock2",
+          "x": 290,
+          "y": 836,
+          "bounds": [
+            290,
+            836,
+            50,
+            36
+          ],
+          "depth": 872
+        },
+        {
+          "id": "tree1-16",
+          "asset": "tree1",
+          "x": 1616,
+          "y": -20,
+          "bounds": [
+            1616,
+            -20,
+            121,
+            190
+          ],
+          "depth": 170
+        },
+        {
+          "id": "tree3-17",
+          "asset": "tree3",
+          "x": 1648,
+          "y": 646,
+          "bounds": [
+            1648,
+            646,
+            93,
+            147
+          ],
+          "depth": 793
+        },
+        {
+          "id": "house1-18",
+          "asset": "house1",
+          "x": 1406,
+          "y": 794,
+          "bounds": [
+            1406,
+            794,
+            112,
+            157
+          ],
+          "depth": 951
+        },
+        {
+          "id": "villager-19",
+          "asset": "villager",
+          "x": 1434,
+          "y": 978,
+          "bounds": [
+            1434,
+            978,
+            58,
+            74
+          ],
+          "depth": 1052
+        },
+        {
+          "id": "sheep-20",
+          "asset": "sheep",
+          "x": 1532,
+          "y": 1046,
+          "bounds": [
+            1532,
+            1046,
+            45,
+            44
+          ],
+          "depth": 1090
+        },
+        {
+          "id": "barracks-21",
+          "asset": "barracks",
+          "x": 136,
+          "y": 1080,
+          "bounds": [
+            136,
+            1080,
+            184,
+            187
+          ],
+          "depth": 1267
+        },
+        {
+          "id": "lancer-22",
+          "asset": "lancer",
+          "x": 150,
+          "y": 924,
+          "bounds": [
+            150,
+            924,
+            70,
+            150
+          ],
+          "depth": 1074
+        },
+        {
+          "id": "tree2-23",
+          "asset": "tree2",
+          "x": -26,
+          "y": 1078,
+          "bounds": [
+            -26,
+            1078,
+            108,
+            244
+          ],
+          "depth": 1322
+        },
+        {
+          "id": "bush3-24",
+          "asset": "bush3",
+          "x": 1440,
+          "y": 1200,
+          "bounds": [
+            1440,
+            1200,
+            79,
+            59
+          ],
+          "depth": 1259
+        },
+        {
+          "id": "tree1-25",
+          "asset": "tree1",
+          "x": 1584,
+          "y": 1200,
+          "bounds": [
+            1584,
+            1200,
+            121,
+            190
+          ],
+          "depth": 1390
+        },
+        {
+          "id": "rock1-26",
+          "asset": "rock1",
+          "x": 300,
+          "y": 1010,
+          "bounds": [
+            300,
+            1010,
+            32,
+            26
+          ],
+          "depth": 1036
+        },
+        {
+          "id": "tree4-detail-0",
+          "asset": "tree4",
+          "x": 236,
+          "y": 8,
+          "bounds": [
+            236,
+            8,
+            81,
+            122
+          ],
+          "depth": 130
+        },
+        {
+          "id": "bush3-detail-1",
+          "asset": "bush3",
+          "x": 146,
+          "y": 408,
+          "bounds": [
+            146,
+            408,
+            79,
+            59
+          ],
+          "depth": 467
+        },
+        {
+          "id": "rock3-detail-2",
+          "asset": "rock3",
+          "x": 138,
+          "y": 620,
+          "bounds": [
+            138,
+            620,
+            39,
+            29
+          ],
+          "depth": 649
+        },
+        {
+          "id": "tree3-detail-3",
+          "asset": "tree3",
+          "x": 1560,
+          "y": 1112,
+          "bounds": [
+            1560,
+            1112,
+            93,
+            147
+          ],
+          "depth": 1259
+        }
+      ],
+      "safeAreas": [
+        [
+          344,
+          0,
+          1040,
+          1380
+        ]
+      ],
+      "animations": [
+        {
+          "id": "archer-7",
+          "asset": "archer",
+          "x": 1454,
+          "y": 330,
+          "animate": true,
+          "bounds": [
+            1454,
+            330,
+            72,
+            89
+          ],
+          "depth": 419,
+          "width": 72,
+          "height": 89,
+          "frames": 6
+        }
+      ]
+    },
+    "mobile": {
+      "width": 640,
+      "height": 210,
+      "items": [
+        {
+          "id": "house3-0",
+          "asset": "house3",
+          "x": 166,
+          "y": 12,
+          "bounds": [
+            166,
+            12,
+            122,
+            135
+          ],
+          "depth": 147
+        },
+        {
+          "id": "archer-1",
+          "asset": "archer",
+          "x": 348,
+          "y": 38,
+          "animate": true,
+          "bounds": [
+            348,
+            38,
+            72,
+            89
+          ],
+          "depth": 127
+        },
+        {
+          "id": "sheep-2",
+          "asset": "sheep",
+          "x": 430,
+          "y": 144,
+          "bounds": [
+            430,
+            144,
+            45,
+            44
+          ],
+          "depth": 188
+        },
+        {
+          "id": "bush2-3",
+          "asset": "bush2",
+          "x": 98,
+          "y": 96,
+          "bounds": [
+            98,
+            96,
+            46,
+            34
+          ],
+          "depth": 130
+        }
+      ],
+      "safeAreas": [],
+      "animations": [
+        {
+          "id": "archer-1",
+          "asset": "archer",
+          "x": 348,
+          "y": 38,
+          "animate": true,
+          "bounds": [
+            348,
+            38,
+            72,
+            89
+          ],
+          "depth": 127,
+          "width": 72,
+          "height": 89,
+          "frames": 6
+        }
+      ]
+    }
+  },
+  "skills": {
+    "desktop": {
+      "width": 1728,
+      "height": 680,
+      "items": [
+        {
+          "id": "tree1-0",
+          "asset": "tree1",
+          "x": 10,
+          "y": -60,
+          "bounds": [
+            10,
+            -60,
+            121,
+            190
+          ],
+          "depth": 130
+        },
+        {
+          "id": "tower-1",
+          "asset": "tower",
+          "x": 172,
+          "y": 92,
+          "bounds": [
+            172,
+            92,
+            120,
+            184
+          ],
+          "depth": 276
+        },
+        {
+          "id": "lancer-2",
+          "asset": "lancer",
+          "x": 148,
+          "y": 308,
+          "bounds": [
+            148,
+            308,
+            70,
+            150
+          ],
+          "depth": 458
+        },
+        {
+          "id": "guard-3",
+          "asset": "guard",
+          "x": 242,
+          "y": 448,
+          "bounds": [
+            242,
+            448,
+            84,
+            89
+          ],
+          "depth": 537
+        },
+        {
+          "id": "bush2-4",
+          "asset": "bush2",
+          "x": 250,
+          "y": 298,
+          "bounds": [
+            250,
+            298,
+            46,
+            34
+          ],
+          "depth": 332
+        },
+        {
+          "id": "rock1-5",
+          "asset": "rock1",
+          "x": 162,
+          "y": 484,
+          "bounds": [
+            162,
+            484,
+            32,
+            26
+          ],
+          "depth": 510
+        },
+        {
+          "id": "tree4-6",
+          "asset": "tree4",
+          "x": 118,
+          "y": 538,
+          "bounds": [
+            118,
+            538,
+            81,
+            122
+          ],
+          "depth": 660
+        },
+        {
+          "id": "barracks-7",
+          "asset": "barracks",
+          "x": 1428,
+          "y": 80,
+          "bounds": [
+            1428,
+            80,
+            184,
+            187
+          ],
+          "depth": 267
+        },
+        {
+          "id": "archer-8",
+          "asset": "archer",
+          "x": 1436,
+          "y": 296,
+          "bounds": [
+            1436,
+            296,
+            72,
+            89
+          ],
+          "depth": 385
+        },
+        {
+          "id": "archer-9",
+          "asset": "archer",
+          "x": 1510,
+          "y": 342,
+          "bounds": [
+            1510,
+            342,
+            72,
+            89
+          ],
+          "depth": 431
+        },
+        {
+          "id": "tree2-10",
+          "asset": "tree2",
+          "x": 1640,
+          "y": -40,
+          "bounds": [
+            1640,
+            -40,
+            108,
+            244
+          ],
+          "depth": 204
+        },
+        {
+          "id": "bush3-11",
+          "asset": "bush3",
+          "x": 1644,
+          "y": 546,
+          "bounds": [
+            1644,
+            546,
+            79,
+            59
+          ],
+          "depth": 605
+        },
+        {
+          "id": "rock2-12",
+          "asset": "rock2",
+          "x": 1400,
+          "y": 408,
+          "bounds": [
+            1400,
+            408,
+            50,
+            36
+          ],
+          "depth": 444
+        },
+        {
+          "id": "gold-detail-0",
+          "asset": "gold",
+          "x": 242,
+          "y": 32,
+          "bounds": [
+            242,
+            32,
+            58,
+            52
+          ],
+          "depth": 84
+        },
+        {
+          "id": "tree4-detail-1",
+          "asset": "tree4",
+          "x": 34,
+          "y": 286,
+          "bounds": [
+            34,
+            286,
+            81,
+            122
+          ],
+          "depth": 408
+        }
+      ],
+      "safeAreas": [
+        [
+          344,
+          0,
+          1040,
+          680
+        ]
+      ],
+      "animations": []
+    },
+    "mobile": {
+      "width": 640,
+      "height": 210,
+      "items": [
+        {
+          "id": "tower-0",
+          "asset": "tower",
+          "x": 170,
+          "y": 0,
+          "bounds": [
+            170,
+            0,
+            120,
+            184
+          ],
+          "depth": 184
+        },
+        {
+          "id": "lancer-1",
+          "asset": "lancer",
+          "x": 366,
+          "y": 28,
+          "bounds": [
+            366,
+            28,
+            70,
+            150
+          ],
+          "depth": 178
+        },
+        {
+          "id": "bush2-2",
+          "asset": "bush2",
+          "x": 470,
+          "y": 140,
+          "bounds": [
+            470,
+            140,
+            46,
+            34
+          ],
+          "depth": 174
+        }
+      ],
+      "safeAreas": [],
+      "animations": []
+    }
+  },
+  "contact": {
+    "desktop": {
+      "width": 1728,
+      "height": 880,
+      "items": [
+        {
+          "id": "house-0",
+          "asset": "house",
+          "x": 174,
+          "y": 148,
+          "bounds": [
+            174,
+            148,
+            128,
+            155
+          ],
+          "depth": 303
+        },
+        {
+          "id": "villager-1",
+          "asset": "villager",
+          "x": 232,
+          "y": 340,
+          "bounds": [
+            232,
+            340,
+            58,
+            74
+          ],
+          "depth": 414
+        },
+        {
+          "id": "sheep-2",
+          "asset": "sheep",
+          "x": 144,
+          "y": 444,
+          "bounds": [
+            144,
+            444,
+            45,
+            44
+          ],
+          "depth": 488
+        },
+        {
+          "id": "sheep-3",
+          "asset": "sheep",
+          "x": 224,
+          "y": 492,
+          "bounds": [
+            224,
+            492,
+            45,
+            44
+          ],
+          "depth": 536
+        },
+        {
+          "id": "tree3-4",
+          "asset": "tree3",
+          "x": 34,
+          "y": 64,
+          "bounds": [
+            34,
+            64,
+            93,
+            147
+          ],
+          "depth": 211
+        },
+        {
+          "id": "tree4-5",
+          "asset": "tree4",
+          "x": 96,
+          "y": 600,
+          "bounds": [
+            96,
+            600,
+            81,
+            122
+          ],
+          "depth": 722
+        },
+        {
+          "id": "bush2-6",
+          "asset": "bush2",
+          "x": 262,
+          "y": 582,
+          "bounds": [
+            262,
+            582,
+            46,
+            34
+          ],
+          "depth": 616
+        },
+        {
+          "id": "monastery-7",
+          "asset": "monastery",
+          "x": 1422,
+          "y": 72,
+          "bounds": [
+            1422,
+            72,
+            160,
+            265
+          ],
+          "depth": 337
+        },
+        {
+          "id": "monk-8",
+          "asset": "monk",
+          "x": 1440,
+          "y": 382,
+          "animate": true,
+          "bounds": [
+            1440,
+            382,
+            58,
+            69
+          ],
+          "depth": 451
+        },
+        {
+          "id": "monk-9",
+          "asset": "monk",
+          "x": 1514,
+          "y": 454,
+          "bounds": [
+            1514,
+            454,
+            58,
+            69
+          ],
+          "depth": 523
+        },
+        {
+          "id": "sheep-10",
+          "asset": "sheep",
+          "x": 1420,
+          "y": 506,
+          "bounds": [
+            1420,
+            506,
+            45,
+            44
+          ],
+          "depth": 550
+        },
+        {
+          "id": "tree1-11",
+          "asset": "tree1",
+          "x": 1630,
+          "y": 176,
+          "bounds": [
+            1630,
+            176,
+            121,
+            190
+          ],
+          "depth": 366
+        },
+        {
+          "id": "house3-12",
+          "asset": "house3",
+          "x": 1500,
+          "y": 710,
+          "bounds": [
+            1500,
+            710,
+            122,
+            135
+          ],
+          "depth": 845
+        },
+        {
+          "id": "bush3-13",
+          "asset": "bush3",
+          "x": 1386,
+          "y": 724,
+          "bounds": [
+            1386,
+            724,
+            79,
+            59
+          ],
+          "depth": 783
+        },
+        {
+          "id": "tree4-14",
+          "asset": "tree4",
+          "x": 22,
+          "y": 764,
+          "bounds": [
+            22,
+            764,
+            81,
+            122
+          ],
+          "depth": 886
+        },
+        {
+          "id": "tree1-detail-0",
+          "asset": "tree1",
+          "x": 8,
+          "y": 304,
+          "bounds": [
+            8,
+            304,
+            121,
+            190
+          ],
+          "depth": 494
+        },
+        {
+          "id": "tree4-detail-1",
+          "asset": "tree4",
+          "x": 1628,
+          "y": 546,
+          "bounds": [
+            1628,
+            546,
+            81,
+            122
+          ],
+          "depth": 668
+        },
+        {
+          "id": "bush1-detail-2",
+          "asset": "bush1",
+          "x": 242,
+          "y": 54,
+          "bounds": [
+            242,
+            54,
+            67,
+            46
+          ],
+          "depth": 100
+        }
+      ],
+      "safeAreas": [
+        [
+          344,
+          0,
+          1040,
+          880
+        ]
+      ],
+      "animations": [
+        {
+          "id": "monk-8",
+          "asset": "monk",
+          "x": 1440,
+          "y": 382,
+          "animate": true,
+          "bounds": [
+            1440,
+            382,
+            58,
+            69
+          ],
+          "depth": 451,
+          "width": 58,
+          "height": 69,
+          "frames": 6
+        }
+      ]
+    },
+    "mobile": {
+      "width": 640,
+      "height": 210,
+      "items": [
+        {
+          "id": "house1-0",
+          "asset": "house1",
+          "x": 170,
+          "y": 10,
+          "bounds": [
+            170,
+            10,
+            112,
+            157
+          ],
+          "depth": 167
+        },
+        {
+          "id": "monk-1",
+          "asset": "monk",
+          "x": 366,
+          "y": 42,
+          "animate": true,
+          "bounds": [
+            366,
+            42,
+            58,
+            69
+          ],
+          "depth": 111
+        },
+        {
+          "id": "sheep-2",
+          "asset": "sheep",
+          "x": 434,
+          "y": 142,
+          "bounds": [
+            434,
+            142,
+            45,
+            44
+          ],
+          "depth": 186
+        },
+        {
+          "id": "bush2-3",
+          "asset": "bush2",
+          "x": 108,
+          "y": 120,
+          "bounds": [
+            108,
+            120,
+            46,
+            34
+          ],
+          "depth": 154
+        }
+      ],
+      "safeAreas": [],
+      "animations": [
+        {
+          "id": "monk-1",
+          "asset": "monk",
+          "x": 366,
+          "y": 42,
+          "animate": true,
+          "bounds": [
+            366,
+            42,
+            58,
+            69
+          ],
+          "depth": 111,
+          "width": 58,
+          "height": 69,
+          "frames": 6
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.tsbuildinfo
+test-results/
+playwright-report/
+# Pack original de Pixel Frog: no se redistribuye. Necesario en local para scripts/prepare-assets.py
+Tiny Swords*.zip

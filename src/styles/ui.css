@@ -1,0 +1,205 @@
+/* Palette sampled from the source PNGs. No filters or opacity on content. */
+:root {
+  --ink: #161c2e;
+  --ink-muted: #444553;
+  --paper: #eee1c6;
+  --panel-dark: #525b66;
+  --accent-blue: #41919d;
+  --accent-gold: #d7b888;
+  --wood: #9b6253;
+  --focus: #161c2e;
+}
+.pixel-panel, .pixel-button, .navigation {
+  position: relative;
+  isolation: isolate;
+  border: 0;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+.pixel-panel {
+  padding: 32px;
+  color: var(--ink);
+}
+.pixel-panel[data-skin='slate'] {
+  color: var(--paper);
+  --focus: var(--paper);
+}
+.nine-slice {
+  --cell-size: 32px;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: grid;
+  grid-template-columns: var(--cell-size) minmax(0, 1fr) var(--cell-size);
+  grid-template-rows: var(--cell-size) minmax(0, 1fr) var(--cell-size);
+  pointer-events: none;
+}
+.slice {
+  background-size: var(--cell-size) var(--cell-size);
+  background-repeat: repeat;
+}
+.nine-slice[data-skin='wood'] .slice-t,
+.nine-slice[data-skin='wood'] .slice-b { background-size: calc(var(--cell-size) / 2) var(--cell-size); }
+.nine-slice[data-skin='wood'] .slice-l,
+.nine-slice[data-skin='wood'] .slice-r { background-size: var(--cell-size) calc(var(--cell-size) / 2); }
+.nine-slice[data-skin='wood'] .slice-c { background-size: calc(var(--cell-size) / 2) calc(var(--cell-size) / 2); }
+.nine-slice[data-skin='paper'] .slice-t,
+.nine-slice[data-skin='paper'] .slice-b { background-size: calc(var(--cell-size) / 2) var(--cell-size); }
+.nine-slice[data-skin='paper'] .slice-l,
+.nine-slice[data-skin='paper'] .slice-r { background-size: var(--cell-size) calc(var(--cell-size) / 2); }
+.pixel-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 12px 20px;
+  color: var(--ink);
+  background: none;
+  text-decoration: none;
+  font: 600 18px/1.2 var(--pixel);
+}
+.pixel-button > .nine-slice { --cell-size: 16px; }
+.pixel-button.secondary { color: var(--paper); }
+.pixel-button:hover { text-decoration: underline; text-underline-offset: 4px; }
+.pixel-button:active { translate: 0 1px; }
+.pixel-button:active:not(.secondary) { color: var(--paper); }
+button:disabled { cursor: wait; }
+.ribbon {
+  position: relative;
+  isolation: isolate;
+  display: table;
+  margin: 0 auto;
+  min-height: 64px;
+  min-width: 280px;
+  padding: 13px 64px 15px;
+  color: var(--ink);
+  font: 600 32px/1.15 var(--pixel);
+  text-align: center;
+  background: url('/assets/ui/ribbon/left.png') left top / 64px 64px no-repeat,
+    url('/assets/ui/ribbon/right.png') right top / 64px 64px no-repeat;
+  image-rendering: pixelated;
+}
+.ribbon::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0 64px;
+  background: url('/assets/ui/ribbon/center.png') left top / 32px 64px repeat-x;
+}
+
+.nine-slice[data-skin="paper"] {
+  --tl: url("/assets/ui/paper/tl.png");
+  --t: url("/assets/ui/paper/t.png");
+  --tr: url("/assets/ui/paper/tr.png");
+  --l: url("/assets/ui/paper/l.png");
+  --c: url("/assets/ui/paper/c.png");
+  --r: url("/assets/ui/paper/r.png");
+  --bl: url("/assets/ui/paper/bl.png");
+  --b: url("/assets/ui/paper/b.png");
+  --br: url("/assets/ui/paper/br.png");
+}
+
+.nine-slice[data-skin="slate"] {
+  --tl: url("/assets/ui/slate/tl.png");
+  --t: url("/assets/ui/slate/t.png");
+  --tr: url("/assets/ui/slate/tr.png");
+  --l: url("/assets/ui/slate/l.png");
+  --c: url("/assets/ui/slate/c.png");
+  --r: url("/assets/ui/slate/r.png");
+  --bl: url("/assets/ui/slate/bl.png");
+  --b: url("/assets/ui/slate/b.png");
+  --br: url("/assets/ui/slate/br.png");
+}
+
+.nine-slice[data-skin="wood"] {
+  --tl: url("/assets/ui/wood/tl.png");
+  --t: url("/assets/ui/wood/t.png");
+  --tr: url("/assets/ui/wood/tr.png");
+  --l: url("/assets/ui/wood/l.png");
+  --c: url("/assets/ui/wood/c.png");
+  --r: url("/assets/ui/wood/r.png");
+  --bl: url("/assets/ui/wood/bl.png");
+  --b: url("/assets/ui/wood/b.png");
+  --br: url("/assets/ui/wood/br.png");
+}
+
+.nine-slice[data-skin="button"] {
+  --tl: url("/assets/ui/button/tl.png");
+  --t: url("/assets/ui/button/t.png");
+  --tr: url("/assets/ui/button/tr.png");
+  --l: url("/assets/ui/button/l.png");
+  --c: url("/assets/ui/button/c.png");
+  --r: url("/assets/ui/button/r.png");
+  --bl: url("/assets/ui/button/bl.png");
+  --b: url("/assets/ui/button/b.png");
+  --br: url("/assets/ui/button/br.png");
+}
+
+.pixel-button:active > .nine-slice[data-skin="button"] {
+  --tl: url("/assets/ui/button-pressed/tl.png");
+  --t: url("/assets/ui/button-pressed/t.png");
+  --tr: url("/assets/ui/button-pressed/tr.png");
+  --l: url("/assets/ui/button-pressed/l.png");
+  --c: url("/assets/ui/button-pressed/c.png");
+  --r: url("/assets/ui/button-pressed/r.png");
+  --bl: url("/assets/ui/button-pressed/bl.png");
+  --b: url("/assets/ui/button-pressed/b.png");
+  --br: url("/assets/ui/button-pressed/br.png");
+}
+.slice-tl { background-image: var(--tl); }
+.slice-t { background-image: var(--t); }
+.slice-tr { background-image: var(--tr); }
+.slice-l { background-image: var(--l); }
+.slice-c { background-image: var(--c); }
+.slice-r { background-image: var(--r); }
+.slice-bl { background-image: var(--bl); }
+.slice-b { background-image: var(--b); }
+.slice-br { background-image: var(--br); }
+/* The pressed fill is darker: use the pack's lighter button-edge color. */
+.pixel-button:active:not(.secondary) { color: #f2eadb; }
+@media (max-width: 760px) {
+  .ribbon { font-size: 26px; min-width: 0; padding: 16px 48px 18px; white-space: nowrap; }
+}
+@media (max-width: 370px) {
+  .ribbon { font-size: 24px; padding-inline: 40px; }
+}
+
+/* Opaque fallback under every reading surface; the artist's cut edges remain. */
+.pixel-panel::before, .nav-rail::before {
+  content: ''; position: absolute; inset: 12px; z-index: -2;
+  background: var(--paper); pointer-events: none;
+}
+.pixel-panel[data-skin='wood']::before { background: var(--wood); }
+.pixel-panel[data-skin='slate']::before { background: var(--panel-dark); }
+
+.nine-slice[data-skin='scroll'] {
+  --tl: url('/assets/ui/scroll/tl.png'); --t: url('/assets/ui/scroll/t.png'); --tr: url('/assets/ui/scroll/tr.png');
+  --l: url('/assets/ui/scroll/l.png'); --c: url('/assets/ui/scroll/c.png'); --r: url('/assets/ui/scroll/r.png');
+  --bl: url('/assets/ui/scroll/bl.png'); --b: url('/assets/ui/scroll/b.png'); --br: url('/assets/ui/scroll/br.png');
+}
+.nine-slice[data-skin='scroll'] .slice-t, .nine-slice[data-skin='scroll'] .slice-b { background-size: 16px 32px; }
+.nine-slice[data-skin='scroll'] .slice-l, .nine-slice[data-skin='scroll'] .slice-r { background-size: 32px 16px; }
+.inventory-slot { display: grid; place-items: center; width: 48px; height: 48px; flex: 0 0 48px; background: url('/assets/ui/WoodTable_Slots.png') center / 48px 48px no-repeat; image-rendering: pixelated; }
+.asset-divider { display: block; height: 12px; background: url('/assets/ui/divider/left.png') left center / 8px 12px no-repeat, url('/assets/ui/divider/right.png') right center / 8px 12px no-repeat; position: relative; }
+.asset-divider::after { content: ''; position: absolute; inset: 0 8px; background: url('/assets/ui/divider/center.png') center / 32px 12px repeat-x; }
+.pixel-field { position: relative; isolation: isolate; margin-bottom: 18px; }
+.pixel-field > .nine-slice { --cell-size: 16px; }
+.contact .pixel-field input, .contact .pixel-field textarea { margin: 0; border: none; box-shadow: none; background: transparent; padding: 14px 18px; display: block; }
+.pixel-field:focus-within { outline: 3px solid var(--ink); outline-offset: 2px; }
+.contact .pixel-field :focus-visible { outline: none; }
+/* Trimmed exterior gutters, not stretched cells: all wood/scroll cells at 1/4. */
+.nine-slice[data-skin='wood'] { --left: 21px; --right: 21px; --top: 22px; --bottom: 26px; }
+.nine-slice[data-skin='scroll'] { --left: 25px; --right: 21px; --top: 17px; --bottom: 28px; }
+.nine-slice:is([data-skin='wood'], [data-skin='scroll']) {
+  grid-template-columns: var(--left) minmax(0, 1fr) var(--right);
+  grid-template-rows: var(--top) minmax(0, 1fr) var(--bottom);
+}
+.nine-slice:is([data-skin='wood'], [data-skin='scroll']) .slice-tl { background-size: var(--left) var(--top); }
+.nine-slice:is([data-skin='wood'], [data-skin='scroll']) .slice-tr { background-size: var(--right) var(--top); }
+.nine-slice:is([data-skin='wood'], [data-skin='scroll']) .slice-bl { background-size: var(--left) var(--bottom); }
+.nine-slice:is([data-skin='wood'], [data-skin='scroll']) .slice-br { background-size: var(--right) var(--bottom); }
+.nine-slice:is([data-skin='wood'], [data-skin='scroll']) .slice-t { background-size: 16px var(--top); }
+.nine-slice:is([data-skin='wood'], [data-skin='scroll']) .slice-b { background-size: 16px var(--bottom); }
+.nine-slice:is([data-skin='wood'], [data-skin='scroll']) .slice-l { background-size: var(--left) 16px; }
+.nine-slice:is([data-skin='wood'], [data-skin='scroll']) .slice-r { background-size: var(--right) 16px; }
