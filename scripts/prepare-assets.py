@@ -1,10 +1,10 @@
-"""Export inspected Tiny Swords regions; compose hand-authored scene data.
-Run with Python + Pillow. No procedural placement, filters or fractional scaling.
+"""Export inspected Tiny Swords UI regions and the sprites the world canvas uses.
+Run with Python + Pillow. No filters or fractional scaling.
 The original ZIP remains the source of truth. Exported UI cells retain their
 transparent outside margins: no atlas gutters ever reach the browser.
 """
 from pathlib import Path
-from PIL import Image, ImageFilter
+from PIL import Image
 import io
 import json
 import zipfile
@@ -12,7 +12,6 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 ARCHIVE = zipfile.ZipFile(ROOT / 'Tiny Swords (Free Pack).zip')
 OUT = ROOT / 'public/assets'
-WORLD = json.loads((ROOT / 'src/data/scenes/world.json').read_text())
 MANIFEST = []
 UI = 'UI Elements/UI Elements/'
 
@@ -87,115 +86,55 @@ save(read(source), 'ui/WoodTable_Slots.png', source, 'standalone UI slot')
 source = UI + 'Bars/SmallBar_Base.png'
 for name, box in [('left', (48, 20, 64, 44)), ('center', (128, 20, 192, 44)), ('right', (256, 20, 272, 44))]:
     save(read(source).crop(box), f'ui/divider/{name}.png', source, 'three-slice UI bar', region=list(box))
-terrain_source = 'Terrain/Tileset/Tilemap_color2.png'
-grass = read(terrain_source).crop((64, 64, 128, 128))
-save(grass, 'terrain/grass.png', terrain_source, 'terrain tile', region=[64, 64, 64, 64])
 
-def draw_pond(scene, pond):
-    # Coastline cells are taken from the original island autotiles. Their alpha
-    # provides the irregular shoreline; the water tile fills the inset area.
-    rows = pond['rows']
-    width, height = max(map(len, rows)), len(rows)
-    coast = Image.new('RGBA', (width * 64, height * 64))
-    atlas = read(terrain_source)
-    def wet(x, y):
-        return 0 <= y < height and 0 <= x < len(rows[y]) and rows[y][x] == 'W'
-    for y in range(height):
-        for x in range(width):
-            if not wet(x, y): continue
-            tx = 0 if not wet(x - 1, y) else 2 if not wet(x + 1, y) else 1
-            ty = 0 if not wet(x, y - 1) else 2 if not wet(x, y + 1) else 1
-            coast.alpha_composite(atlas.crop((tx*64, ty*64, tx*64+64, ty*64+64)), (x*64, y*64))
-    # Erode the composed shape, not each cell: no grid seams inside the pond.
-    mask = coast.getchannel('A').filter(ImageFilter.MinFilter(9))
-    water_tile = read('Terrain/Tileset/Water Background color.png')
-    water = Image.new('RGBA', coast.size)
-    for y in range(0, height*64, 64):
-        for x in range(0, width*64, 64): water.alpha_composite(water_tile, (x, y))
-    coast.paste(water, (0, 0), mask)
-    scene.alpha_composite(coast, (pond['x'], pond['y']))
-
-# Tight bounds are shared by rendering and validation, including all idle frames.
-CACHE = {}
-for key, data in WORLD['assets'].items():
-    sheet = read(data['source'])
-    if 'frame' in data:
-        x, y, w, h = data['frame']
-        frames = [sheet.crop((x+i*w, y, x+(i+1)*w, y+h)) for i in range(data['frames'])]
-    else:
-        frames = [sheet]
-    boxes = [frame.getbbox() for frame in frames]
-    bounds = (min(b[0] for b in boxes), min(b[1] for b in boxes), max(b[2] for b in boxes), max(b[3] for b in boxes))
-    CACHE[key] = [frame.crop(bounds) for frame in frames]
-
-def intersects(a, b):
-    return a[0] < b[0]+b[2] and a[0]+a[2] > b[0] and a[1] < b[1]+b[3] and a[1]+a[3] > b[1]
-
-def compose(name, data):
-    errors = []
-    entries = []
-    for item in data['items']:
-        frames = CACHE[item['asset']]
-        w,h = frames[0].size
-        assert all(isinstance(item[k], int) for k in ['x','y'])
-        rect = [item['x'],item['y'],w,h]
-        entries.append({**item, 'bounds':rect, 'depth':item['y']+h})
-        for safe in data['safeAreas']:
-            if intersects(rect, safe): errors.append(f"{name}: {item['id']} enters UI safe area")
-        if item['asset'] != 'waterRock':
-            for pond in data['ponds']:
-                for y,row in enumerate(pond['rows']):
-                    for x,cell in enumerate(row):
-                        if cell == 'W' and intersects(rect,[pond['x']+x*64,pond['y']+y*64,64,64]):
-                            errors.append(f"{name}: {item['id']} overlaps water"); break
-    for i,a in enumerate(entries):
-        for b in entries[i+1:]:
-            if not intersects(a['bounds'],b['bounds']): continue
-            # Overlapping tree crowns are deliberate forest depth, never units,
-            # animals, buildings or doors. Their bottom footprints must be clear.
-            if a['asset'].startswith('tree') and b['asset'].startswith('tree'):
-                def foot(o):
-                    x,y,w,h=o['bounds']; return [x+w//3,y+h-16,w//3,16]
-                if not intersects(foot(a),foot(b)): continue
-            errors.append(f"{name}: {a['id']} overlaps {b['id']}")
-    if errors:
-        return None, errors
-    image = Image.new('RGBA',(data['width'],data['height']))
-    for pond in data['ponds']: draw_pond(image,pond)
-    animations=[]
-    for item in sorted(entries,key=lambda o:o['depth']):
-        if item.get('animate'):
-            frames=CACHE[item['asset']]; w,h=frames[0].size
-            animations.append({**item,'width':w,'height':h,'frames':len(frames)})
-        else:
-            image.alpha_composite(CACHE[item['asset']][0],(item['x'],item['y']))
-    save(image,f'terrain/{name}.webp','src/data/scenes/world.json#'+name,'validated Y-sorted decorative layer')
-    return {'width':data['width'],'height':data['height'],'items':entries,'safeAreas':data['safeAreas'],'animations':animations}, []
-
-RUNTIME = {}
-ERRORS = []
-for name, data in WORLD['regions'].items():
-    desktop, errors = compose(name,data); ERRORS += errors
-    mobile, errors = compose(name+'Mobile',data['mobile']); ERRORS += errors
-    RUNTIME[name]={'desktop':desktop,'mobile':mobile}
-if ERRORS:
-    raise SystemExit('Visual placement validation failed:\n'+'\n'.join(sorted(set(ERRORS))))
-
-animated = {item['asset'] for region in RUNTIME.values() for scene in region.values() for item in scene['animations']}
-for key in sorted(animated):
-    frames=CACHE[key];w,h=frames[0].size
-    strip=Image.new('RGBA',(w*len(frames),h))
-    for i,frame in enumerate(frames):strip.alpha_composite(frame,(i*w,0))
-    save(strip,f'units/{key}-idle.png',WORLD['assets'][key]['source'],'tight animation strip',frames=len(frames),frame=[w,h])
-(ROOT/'src/data/scenes/generated.json').write_text(json.dumps(RUNTIME,indent=2)+'\n')
-(ROOT/'docs/scene-validation.json').write_text(json.dumps({'status':'passed','regions':len(RUNTIME),'sprites':sum(len(s['items']) for r in RUNTIME.values() for s in r.values()),'checks':['UI safe areas','visible sprite bounds','water exclusion','tree footprints','integer coordinates','Y depth']},indent=2)+'\n')
-
-# Only delete files previously generated by this script, never unrelated assets.
-manifest_path = ROOT / 'docs/selected-assets.json'
-previous = json.loads(manifest_path.read_text()) if manifest_path.exists() else []
-selected = {item['file'] for item in MANIFEST}
-for item in previous:
-    if item['file'] not in selected:
-        (OUT / item['file']).unlink(missing_ok=True)
-manifest_path.write_text(json.dumps(MANIFEST, indent=2) + '\n')
-print(f'Exported {len(MANIFEST)} inspected regions and composed layers.')
+# World sprites: copied unmodified. The registry records the frame grid and the
+# opaque box of frame 0; its bottom centre is the "feet" anchor used for Y-sorting.
+T, D, R, U, B = 'Terrain/', 'Terrain/Decorations/', 'Terrain/Resources/', 'Units/Blue Units/', 'Buildings/Blue Buildings/'
+WORLD = {  # id: (source, frame width, frame height, fps)
+    'tilemap': (T + 'Tileset/Tilemap_color1.png', 576, 384, 0),
+    'foam': (T + 'Tileset/Water Foam.png', 192, 192, 8),
+    'shadow': (T + 'Tileset/Shadow.png', 192, 192, 0),
+    'castle': (B + 'Castle.png', 320, 256, 0), 'tower': (B + 'Tower.png', 128, 256, 0),
+    'barracks': (B + 'Barracks.png', 192, 256, 0), 'archery': (B + 'Archery.png', 192, 256, 0),
+    'monastery': (B + 'Monastery.png', 192, 320, 0),
+    **{f'house{i}': (B + f'House{i}.png', 128, 192, 0) for i in (1, 2, 3)},
+    **{f'tree{i}': (R + f'Wood/Trees/Tree{i}.png', 192, 256 if i < 3 else 192, 8) for i in (1, 2, 3, 4)},
+    **{f'stump{i}': (R + f'Wood/Trees/Stump {i}.png', 192, 256, 0) for i in (1, 2, 3, 4)},
+    **{f'bush{i}': (D + f'Bushes/Bushe{i}.png', 128, 128, 8) for i in (1, 2, 3, 4)},
+    **{f'rock{i}': (D + f'Rocks/Rock{i}.png', 64, 64, 0) for i in (1, 2, 3, 4)},
+    **{f'waterRock{i}': (D + f'Rocks in the Water/Water Rocks_0{i}.png', 64, 64, 8) for i in (1, 2, 3, 4)},
+    **{f'cloud{i}': (D + f'Clouds/Clouds_0{i}.png', 576, 256, 0) for i in range(1, 9)},
+    **{f'gold{i}': (R + f'Gold/Gold Stones/Gold Stone {i}.png', 128, 128, 0) for i in range(1, 7)},
+    'goldResource': (R + 'Gold/Gold Resource/Gold_Resource.png', 128, 128, 0),
+    'woodResource': (R + 'Wood/Wood Resource/Wood Resource.png', 64, 64, 0),
+    'sheepIdle': (R + 'Meat/Sheep/Sheep_Idle.png', 128, 128, 8),
+    'sheepGrass': (R + 'Meat/Sheep/Sheep_Grass.png', 128, 128, 8),
+    'sheepMove': (R + 'Meat/Sheep/Sheep_Move.png', 128, 128, 8),
+    **{'pawn' + name.replace(' ', ''): (U + f'Pawn/Pawn_{name}.png', 192, 192, 10) for name in [
+        'Idle', 'Run', 'Idle Axe', 'Run Axe', 'Interact Axe', 'Run Wood', 'Idle Pickaxe', 'Run Pickaxe',
+        'Interact Pickaxe', 'Run Gold', 'Idle Hammer', 'Interact Hammer']},
+    **{'warrior' + n: (U + f'Warrior/Warrior_{n}.png', 192, 192, 10) for n in ('Idle', 'Run', 'Guard')},
+    **{'lancer' + n: (U + f'Lancer/Lancer_{n}.png', 320, 320, 10) for n in ('Idle', 'Run')},
+    **{'archer' + n: (U + f'Archer/Archer_{n}.png', 192, 192, 10) for n in ('Idle', 'Run', 'Shoot')},
+    'arrow': (U + 'Archer/Arrow.png', 64, 64, 0),
+    **{'monk' + n: (U + f'Monk/{n}.png', 192, 192, 10) for n in ('Idle', 'Run', 'Heal')},
+}
+registry = {}
+for key, (source, fw, fh, fps) in WORLD.items():
+    image = read(source)
+    assert image.width % fw == 0 and image.height == fh, (key, image.size)
+    save(image, f'world/{key}.png', source, 'world sprite')
+    x0, y0, x1, y1 = image.crop((0, 0, fw, fh)).getbbox()
+    registry[key] = dict(src=f'/assets/world/{key}.png', frameW=fw, frameH=fh, frames=image.width // fw, fps=fps,
+                         # Units swap sheets per state: a centred X keeps them from jittering sideways.
+                         anchorX=fw // 2 if source.startswith((U, R + 'Meat')) else (x0 + x1) // 2, anchorY=y1, box=[x0, y0, x1, y1])
+source = UI + 'Human Avatars/Avatars_01.png'
+save(read(source), 'ui/avatar.png', source, 'standalone sprite')
+lines = ',\n'.join(f'  {key}: {json.dumps(value)}' for key, value in registry.items())
+(ROOT / 'src/world/sprites.generated.ts').write_text(
+    '// Generated by scripts/prepare-assets.py. Do not edit.\n'
+    'export type SpriteDef = { src: string; frameW: number; frameH: number; frames: number; fps: number; '
+    'anchorX: number; anchorY: number; box: number[] };\n'
+    f'export const sprites = {{\n{lines},\n}} satisfies Record<string, SpriteDef>;\n'
+    'export type SpriteId = keyof typeof sprites;\n')
+print(f'Exported {len(MANIFEST)} files.')
