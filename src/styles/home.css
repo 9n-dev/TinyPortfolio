@@ -16,7 +16,8 @@
 .home-content { width: 500px; margin-left: calc(50% - 408px); }
 .hero-paper { padding: 36px 34px 32px; }
 .hero-paper h1 { font-size: 48px; font-weight: 600; line-height: 1; letter-spacing: -1px; overflow-wrap: anywhere; margin-bottom: 14px; }
-.hero-role { font: 26px/1.16 var(--pixel); margin-bottom: 16px; text-wrap: balance; }
+.hero-role { font: 26px/1.16 var(--pixel); margin-bottom: 16px; }
+.hero-role span { display: inline-block; }
 .hero-description { font-size: 16px; line-height: 1.6; margin-bottom: 20px; max-width: 410px; }
 .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
 .hero-paper .social-links { margin-top: 16px; gap: 24px; }

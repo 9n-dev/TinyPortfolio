@@ -20,6 +20,8 @@ for (const width of [1728, 1440, 1024, 768, 390, 320]) test(`layout holds at ${w
   await ready(page);
   await expect(page.getByRole('heading', { level: 1, name: 'Manuel Allegue', exact: true })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  // The role may wrap after the slash but each half stays on one line (it used to break inside "Full-Stack").
+  if (width >= 390) expect(await page.locator('.hero-role span').evaluateAll(parts => parts.map(part => part.getBoundingClientRect().height < 40))).toEqual([true, true]);
   const outside = await page.locator('.hero-paper, .about-paper, .project-card, .inventory, .contact-paper, .navigation')
     .evaluateAll(elements => elements.filter(el => { const box = el.getBoundingClientRect(); return box.left < 0 || box.right > innerWidth; }).map(el => el.className));
   expect(outside).toEqual([]);
