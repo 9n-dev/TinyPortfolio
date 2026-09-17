@@ -1,17 +1,17 @@
 <div align="center">
 
-# 🏰 TinyPortfolio
+# TinyPortfolio
 
 **Mi portfolio, dentro del mundo de mi propio juego.**<br>
 La interfaz es la de un RTS en pixel art y, detrás, una aldea de [TinyRTS](https://github.com/9n-dev/TinyRTS) sigue con su vida.
 
-### [▶ Verlo en vivo: 9n-dev.github.io/TinyPortfolio](https://9n-dev.github.io/TinyPortfolio/)
+### [Verlo en vivo: 9n-dev.github.io/TinyPortfolio](https://9n-dev.github.io/TinyPortfolio/)
 
 ![React](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178c6?logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-6-646cff?logo=vite&logoColor=white)
 ![Canvas](https://img.shields.io/badge/mundo-Canvas%202D%20propio-e34f26)
-![Playwright](https://img.shields.io/badge/tests-34%20passing-6da55f?logo=playwright&logoColor=white)
+![Playwright](https://img.shields.io/badge/tests-36%20passing-6da55f?logo=playwright&logoColor=white)
 [![Deploy](https://github.com/9n-dev/TinyPortfolio/actions/workflows/pages.yml/badge.svg)](https://github.com/9n-dev/TinyPortfolio/actions/workflows/pages.yml)
 ![License](https://img.shields.io/badge/c%C3%B3digo-MIT-blue)
 
@@ -27,12 +27,12 @@ Un portfolio de una sola página (inicio, sobre mí, proyectos, skills y contact
 tablones, pergaminos, cintas y botones del pack **Tiny Swords**, montados pieza a pieza para que las esquinas nunca se
 deformen. El fondo no es una imagen: es un mundo simulado que se pinta en un `<canvas>` y cuya cámara baja con el scroll.
 
-- 🌊 Estanques y costa con espuma animada, rocas en el agua y nubes que pasan.
-- 🌲 Bosque cerrado en los bordes, con cada árbol meciéndose a su ritmo.
-- ⛏️ Mineros que pican oro y vuelven cargados, leñadores que talan y acarrean madera, constructores martilleando.
-- 🐑 Ovejas que pastan, guerreros, lanceros y arqueros de patrulla, monjes que pasean y curan.
-- 🎯 Arqueros que disparan flechas de verdad a las dianas del campo de tiro.
-- 🗺️ Cada sección tiene su escena: castillo y aldea, casas junto al estanque, mina y talleres, cuartel, monasterio junto
+- Estanques y costa con espuma animada, rocas en el agua y nubes que pasan.
+- Bosque cerrado en los bordes, con cada árbol meciéndose a su ritmo.
+- Mineros que pican oro y vuelven cargados, leñadores que talan y acarrean madera, constructores martilleando.
+- Ovejas que pastan, guerreros, lanceros y arqueros de patrulla, monjes que pasean y curan.
+- Arqueros que disparan flechas de verdad a las dianas del campo de tiro.
+- Cada sección tiene su escena: castillo y aldea, casas junto al estanque, mina y talleres, cuartel, monasterio junto
   al lago; y bajo el pie de página el mapa termina en el mar.
 
 Sin motor de juego ni librerías de animación: React, TypeScript, Vite y unas 750 líneas de mundo, escenas incluidas.
@@ -77,8 +77,11 @@ flowchart LR
 - **Los comportamientos son guiones** con generadores: `ir → trabajar → volver cargado → descansar`. Sin pathfinding:
   líneas rectas entre puntos elegidos a mano.
 - **El terreno usa el autotile de TinyRTS** (solo bordes convexos, como el tileset) y la espuma va desfasada por casilla.
-- **Barato:** 0,7 ms de script por frame a 1920×1080, 560 KB de sprites. Se detiene con la pestaña oculta, con el botón de
-  pausa y con `prefers-reduced-motion`; el mundo arranca ya presimulado, así que el frame fijo también tiene vida.
+- **El canvas hace scroll con la página.** Es algo más alto que la pantalla y forma parte del documento, así que el
+  navegador lo desplaza junto a los paneles en el hilo del compositor; en cada frame se recoloca alrededor de la pantalla
+  y se repinta. Un canvas fijo repintado desde `scrollY` va a tirones en móvil, donde el scroll no espera a JavaScript.
+- **Barato:** 0,7 ms de script por frame a 1920×1080, 560 KB de sprites. Se detiene con la pestaña oculta y con
+  `prefers-reduced-motion`; el mundo arranca ya presimulado, así que el frame fijo también tiene vida.
 
 ## Desarrollo
 
@@ -126,9 +129,10 @@ y pon su URL en `contactEndpoint`. Envía un POST JSON con timeout y gestión de
 
 ## Pruebas
 
-34 tests con Playwright. Sin navegador: autotile, composición del mundo a 4 anchuras × 3 alturas, validador y
+36 tests con Playwright. Sin navegador: autotile, composición del mundo a 4 anchuras × 3 alturas, validador y
 comportamientos. En Chromium: sin overflow ni errores de consola de 1728 a 320 px, navegación activa, formulario, que el
-mundo se pinta, se mueve y se congela en pausa y con movimiento reducido, idioma (cambio, persistencia y detección),
+mundo se pinta y se mueve, que queda fijo con movimiento reducido, que el canvas hace scroll con la página y cubre
+siempre la pantalla, idioma (cambio, persistencia y detección),
 teclado y coste por frame. Pendiente: Safari, Firefox, lector de pantalla y móviles físicos.
 
 ## Despliegue

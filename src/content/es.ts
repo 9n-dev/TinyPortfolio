@@ -1,16 +1,15 @@
 import type { Content } from './en';
 
 export const es: Content = {
-  role: 'Desarrollador Full-Stack · .NET · Python · React',
+  role: 'Desarrollador FullStack y Analista de datos',
   description: 'Convierto ideas en software: aplicaciones y servicios robustos y escalables, desde la base de datos hasta la interfaz.',
   nav: { home: 'Inicio', about: 'Sobre mí', projects: 'Proyectos', skills: 'Skills', contact: 'Contacto', main: 'Navegación principal', language: 'Idioma' },
   skip: 'Saltar al contenido',
-  hero: { projects: 'Ver proyectos', contact: 'Contacto', explore: 'Explorar', pause: 'Pausar', resume: 'Reanudar',
-    pauseLabel: 'Pausar las animaciones decorativas', resumeLabel: 'Reanudar las animaciones decorativas' },
+  hero: { projects: 'Ver proyectos', contact: 'Contacto' },
   about: {
     title: 'Sobre mí',
     paragraphs: [
-      'Soy Desarrollador Full-Stack en A Coruña. En GT Motive desarrollo procesos de facturación en backend con PL/SQL, automatizo operaciones en Linux y convierto datos de negocio en informes y dashboards; antes desarrollé allí aplicaciones y APIs REST con C# y .NET.',
+      'Soy Desarrollador FullStack y Analista de datos en A Coruña. En GT Motive desarrollo procesos de facturación en backend con PL/SQL, automatizo operaciones en Linux y convierto datos de negocio en informes y dashboards; antes desarrollé allí aplicaciones y APIs REST con C# y .NET.',
       'Siempre estoy aprendiendo. Estudio Ingeniería Informática mientras trabajo, tengo un MBA en Big Data Analytics y en mi tiempo libre hago juegos y herramientas, como el juego de estrategia cuyo mundo se mueve detrás de esta página.',
     ],
     facts: [
@@ -41,8 +40,8 @@ export const es: Content = {
     intro: 'Lo que uso a diario, desde la base de datos hasta la interfaz.',
     groups: [
       { name: 'Frontend', icon: '05', description: 'Interfaces que se sienten bien.', technologies: ['React', 'TypeScript', 'JavaScript', 'HTML y CSS', 'Angular'] },
-      { name: 'Backend', icon: '06', description: 'Cimientos sólidos por debajo.', technologies: ['C# / .NET', 'Python / Django', 'Node.js', 'Java'] },
-      { name: 'Datos', icon: '03', description: 'Que los números cuenten algo.', technologies: ['SQL y PL/SQL', 'SQL Server', 'BI e IBM Cognos', 'MongoDB'] },
+      { name: 'Backend', icon: '06', description: 'Cimientos sólidos por debajo.', technologies: ['C# / .NET', 'Python / Django', 'Rust', 'Node.js', 'Java'] },
+      { name: 'Datos', icon: '03', description: 'Que los números cuenten algo.', technologies: ['SQL y PL/SQL', 'Oracle', 'SQL Server', 'BI e IBM Cognos', 'MongoDB'] },
       { name: 'DevOps', icon: '10', description: 'Un flujo de trabajo fiable.', technologies: ['Linux', 'Bash', 'Docker', 'Git y GitHub', 'Azure DevOps'] },
     ],
   },

@@ -1,6 +1,7 @@
 /** Everything that is the same in every language. Visible text lives in src/content/. */
 export const siteConfig = {
-  name: 'Manuel Allegue López',
+  name: 'Manuel Allegue',
+  brand: '9n.dev',
   email: 'manuelallegue14@gmail.com',
   /** Formspree form URL (https://formspree.io/f/…). While null the form validates but sends nothing. */
   contactEndpoint: null as string | null,

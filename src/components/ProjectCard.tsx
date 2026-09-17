@@ -17,8 +17,8 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
       </ul>
       </div>
       {(project.url || project.sourceUrl) && <div className="project-actions">
-        {project.url && <PixelButton href={project.url} target="_blank" rel="noreferrer" aria-label={`${t.projects.view}: ${project.name}`}>{t.projects.view} <span aria-hidden="true">↗</span></PixelButton>}
-        {project.sourceUrl && <PixelButton className="secondary" href={project.sourceUrl} target="_blank" rel="noreferrer" aria-label={`${t.projects.source}: ${project.name}`}>{t.projects.source} <span aria-hidden="true">↗</span></PixelButton>}
+        {project.url && <PixelButton href={project.url} target="_blank" rel="noreferrer" aria-label={`${t.projects.view}: ${project.name}`}>{t.projects.view}</PixelButton>}
+        {project.sourceUrl && <PixelButton className="secondary" href={project.sourceUrl} target="_blank" rel="noreferrer" aria-label={`${t.projects.source}: ${project.name}`}>{t.projects.source}</PixelButton>}
       </div>}
     </PixelPanel>
   </article>;

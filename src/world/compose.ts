@@ -54,7 +54,7 @@ export function compose(sections: SectionBox[], worldW: number, worldH: number):
   // Scenes: home on top, one strip centred in the gap above each later section, the shore at the bottom.
   const top = (s: SectionBox) => Math.min(...s.rects.map(r => r.y));
   const bottom = (s: SectionBox) => Math.max(...s.rects.map(r => r.y + r.h));
-  const wanted: { id: SceneId; row: number; shift?: number }[] = [];
+  const wanted: { id: SceneId; row?: number; gap?: [number, number]; shift?: number }[] = [];
   // Stacked layout (phones): the hero panel is centred and hides the home scene, so the scene moves below it
   // and slides left until the village, not the hole left for the panel, is what the screen shows.
   const hero = sections[0]?.rects[0];
@@ -62,9 +62,8 @@ export function compose(sections: SectionBox[], worldW: number, worldH: number):
   sections.forEach((section, i) => {
     if (!(section.id in scenes)) return;
     const id = section.id as SceneId;
-    const middle = i === 0 ? 0 : (bottom(sections[i - 1]) + top(section)) / 2 / TILE;
-    if (i === 0 && stacked) wanted.push({ id, row: Math.ceil((hero.y + hero.h) / TILE) - 3, shift: -6 });
-    else wanted.push({ id, row: i === 0 ? 0 : Math.round(middle - scenes[id].rows.length / 2) });
+    if (i === 0) wanted.push(stacked ? { id, row: Math.ceil((hero.y + hero.h) / TILE) - 3, shift: -6 } : { id, row: 0 });
+    else wanted.push({ id, gap: [bottom(sections[i - 1]), top(section)] });
   });
   wanted.push({ id: 'shore', row: rows - scenes.shore.rows.length });
   /** Stamps a scene at a row and column. Full-width scenes repeat their edge terrain out to the sides of wide screens. */
@@ -82,8 +81,11 @@ export function compose(sections: SectionBox[], worldW: number, worldH: number):
       world.actors.push({ ...actor, path: actor.path.map(px), ...('look' in actor ? { look: px(actor.look) } : {}) } as PlacedActor);
   };
   let free = 0;
-  for (const { id, row: wantedRow, shift = 0 } of wanted) {
-    const scene = scenes[id], row = Math.max(wantedRow, free);
+  for (const { id, row: fixed, gap, shift = 0 } of wanted) {
+    const scene = scenes[id];
+    // A strip sits in the middle of what is left of its gap once the scene above has taken its rows.
+    const centred = gap ? Math.round((Math.max(gap[0], free * TILE) + gap[1]) / 2 / TILE - scene.rows.length / 2) : fixed!;
+    const row = Math.max(centred, free);
     if (row + scene.rows.length > rows) continue;   // page too short for it
     free = row + scene.rows.length;
     world.placed.push({ id, row, rows: scene.rows.length });

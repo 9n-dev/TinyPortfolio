@@ -18,7 +18,7 @@ for (const width of [1728, 1440, 1024, 768, 390, 320]) test(`layout holds at ${w
   await page.setViewportSize({ width, height: 900 });
   await page.goto('/');
   await ready(page);
-  await expect(page.getByRole('heading', { level: 1, name: 'Manuel Allegue López' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: 'Manuel Allegue', exact: true })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   const outside = await page.locator('.hero-paper, .about-paper, .project-card, .inventory, .contact-paper, .navigation')
     .evaluateAll(elements => elements.filter(el => { const box = el.getBoundingClientRect(); return box.left < 0 || box.right > innerWidth; }).map(el => el.className));
@@ -53,14 +53,14 @@ test('contact form validates and, without an endpoint, says nothing was sent', a
   await expect(page.getByRole('status')).toContainText('nothing has been sent');
 });
 
-test('the world is painted, moves, and freezes when paused', async ({ page }) => {
+test('the world is painted and moves', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/');
   await ready(page);
   await page.waitForTimeout(500);
-  const first = await canvas(page).screenshot();
+  const first = await page.screenshot();
   await page.waitForTimeout(1000);
-  expect((await canvas(page).screenshot()).equals(first)).toBe(false);
+  expect((await page.screenshot()).equals(first)).toBe(false);
   // Painted means more than the grass colour: sample the canvas for water, roofs, units…
   const colours = await canvas(page).evaluate((element: HTMLCanvasElement) => {
     const { data } = element.getContext('2d')!.getImageData(0, 0, element.width, element.height);
@@ -69,15 +69,25 @@ test('the world is painted, moves, and freezes when paused', async ({ page }) =>
     return seen.size;
   });
   expect(colours).toBeGreaterThan(50);
+});
 
-  await page.getByRole('button', { name: 'Pause decorative animations' }).click();
-  await page.waitForTimeout(300);
-  const frozen = await canvas(page).screenshot();
-  await page.waitForTimeout(1000);
-  expect((await canvas(page).screenshot()).equals(frozen)).toBe(true);
-  await page.getByRole('button', { name: 'Resume decorative animations' }).click();
-  await page.waitForTimeout(1000);
-  expect((await canvas(page).screenshot()).equals(frozen)).toBe(false);
+for (const [width, height] of [[1440, 900], [390, 844]]) test(`the canvas scrolls with the page and always covers the screen at ${width}px`, async ({ page }) => {
+  await page.setViewportSize({ width, height });
+  await page.goto('/');
+  await ready(page);
+  // Scrolling natively with the content is what keeps the background from juddering on phones.
+  expect(await canvas(page).evaluate(element => getComputedStyle(element).position)).toBe('absolute');
+  const end = await page.evaluate(() => document.documentElement.scrollHeight - innerHeight);
+  for (const top of [0, 700, 2500, end]) {
+    await page.evaluate(top => scrollTo({ top, behavior: 'instant' }), top);
+    await page.waitForTimeout(200);
+    const box = await canvas(page).evaluate(element => { const r = element.getBoundingClientRect(); return { top: r.top, bottom: r.bottom, screen: innerHeight }; });
+    expect(box.top).toBeLessThanOrEqual(0);
+    expect(box.bottom).toBeGreaterThanOrEqual(box.screen);
+    // and there is spare canvas in the direction of travel, except at the ends of the page
+    if (top > 400 && top < end - 400) { expect(box.top).toBeLessThan(-200); expect(box.bottom).toBeGreaterThan(box.screen + 200); }
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
 test('reduced motion shows a still world that still follows the scroll', async ({ page }) => {
@@ -86,12 +96,12 @@ test('reduced motion shows a still world that still follows the scroll', async (
   await page.goto('/');
   await ready(page);
   await page.waitForTimeout(800);
-  const still = await canvas(page).screenshot();
+  const still = await page.screenshot();
   await page.waitForTimeout(1000);
-  expect((await canvas(page).screenshot()).equals(still)).toBe(true);
+  expect((await page.screenshot()).equals(still)).toBe(true);
   await page.mouse.wheel(0, 600);
   await page.waitForTimeout(500);
-  expect((await canvas(page).screenshot()).equals(still)).toBe(false);
+  expect((await page.screenshot()).equals(still)).toBe(false);
 });
 
 test('language switch translates the page and is remembered', async ({ page }) => {
@@ -100,7 +110,7 @@ test('language switch translates the page and is remembered', async ({ page }) =
   await page.getByRole('button', { name: 'ES', exact: true }).click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
   await expect(nav(page, 'Proyectos')).toBeVisible();
-  await expect(page).toHaveTitle(/Desarrollador Full-Stack/);
+  await expect(page).toHaveTitle(/Desarrollador FullStack y Analista de datos/);
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
   await expect(page.getByRole('heading', { name: 'Sobre mí' })).toBeVisible();

@@ -1,16 +1,15 @@
 export type Project = { name: string; category: string; description: string; stack: string[]; url?: string; sourceUrl?: string; image?: string };
 
 export const en = {
-  role: 'Full-Stack Developer · .NET · Python · React',
+  role: 'FullStack Developer and Data Analyst',
   description: 'I turn ideas into software: robust, scalable applications and services, from the database up to the interface.',
   nav: { home: 'Home', about: 'About', projects: 'Projects', skills: 'Skills', contact: 'Contact', main: 'Main navigation', language: 'Language' },
   skip: 'Skip to content',
-  hero: { projects: 'View Projects', contact: 'Contact Me', explore: 'Explore', pause: 'Pause motion', resume: 'Resume motion',
-    pauseLabel: 'Pause decorative animations', resumeLabel: 'Resume decorative animations' },
+  hero: { projects: 'View Projects', contact: 'Contact Me' },
   about: {
     title: 'About me',
     paragraphs: [
-      "I'm a Full-Stack Developer based in A Coruña, Spain. At GT Motive I build backend billing processes in PL/SQL, automate operations on Linux and turn business data into reports and dashboards; before that I developed C# and .NET applications and REST APIs there.",
+      "I'm a FullStack Developer and Data Analyst based in A Coruña, Spain. At GT Motive I build backend billing processes in PL/SQL, automate operations on Linux and turn business data into reports and dashboards; before that I developed C# and .NET applications and REST APIs there.",
       "I'm always learning. I'm studying Computer Engineering alongside work, hold an MBA in Big Data Analytics, and in my spare time I build games and tools, like the strategy game whose world is running behind this page.",
     ],
     facts: [
@@ -41,8 +40,8 @@ export const en = {
     intro: 'The tools I reach for, from the database up to the interface.',
     groups: [
       { name: 'Frontend', icon: '05', description: 'Interfaces that feel right.', technologies: ['React', 'TypeScript', 'JavaScript', 'HTML & CSS', 'Angular'] },
-      { name: 'Backend', icon: '06', description: 'Solid foundations underneath.', technologies: ['C# / .NET', 'Python / Django', 'Node.js', 'Java'] },
-      { name: 'Data', icon: '03', description: 'Make the numbers tell a story.', technologies: ['SQL & PL/SQL', 'SQL Server', 'BI & IBM Cognos', 'MongoDB'] },
+      { name: 'Backend', icon: '06', description: 'Solid foundations underneath.', technologies: ['C# / .NET', 'Python / Django', 'Rust', 'Node.js', 'Java'] },
+      { name: 'Data', icon: '03', description: 'Make the numbers tell a story.', technologies: ['SQL & PL/SQL', 'Oracle', 'SQL Server', 'BI & IBM Cognos', 'MongoDB'] },
       { name: 'DevOps', icon: '10', description: 'A dependable workflow.', technologies: ['Linux', 'Bash', 'Docker', 'Git & GitHub', 'Azure DevOps'] },
     ],
   },

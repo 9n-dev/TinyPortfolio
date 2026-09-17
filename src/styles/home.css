@@ -16,20 +16,12 @@
 .home-content { width: 500px; margin-left: calc(50% - 408px); }
 .hero-paper { padding: 36px 34px 32px; }
 .hero-paper h1 { font-size: 48px; font-weight: 600; line-height: 1; letter-spacing: -1px; overflow-wrap: anywhere; margin-bottom: 14px; }
-.hero-role { font: 26px/1.16 var(--pixel); margin-bottom: 16px; }
-.hero-role span { color: #425062; }
+.hero-role { font: 26px/1.16 var(--pixel); margin-bottom: 16px; text-wrap: balance; }
 .hero-description { font-size: 16px; line-height: 1.6; margin-bottom: 20px; max-width: 410px; }
 .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
 .hero-paper .social-links { margin-top: 16px; gap: 24px; }
 .hero-paper .social-links a { font-size: 14px; }
-.world-controls { left: calc(50% - 88px); bottom: 32px; display: flex; align-items: center; gap: 20px; padding: 14px 22px; }
-.world-controls > .nine-slice { --cell-size: 16px; }
-.scroll-prompt { display: inline-flex; align-items: center; gap: 10px; min-height: 36px; font: 600 18px/1 var(--pixel); text-decoration: none; }
-.scroll-prompt:hover { text-decoration: underline; }
-.motion-button { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; border: 0; padding: 0; color: var(--ink); font: 13px/1.2 Arial, sans-serif; background: none; }
-.motion-button:hover { text-decoration: underline; }
 .section > .pixel-panel, .section-heading, .home-content { position: relative; z-index: var(--layer-content); }
-.home > .world-controls { position: absolute; z-index: var(--layer-content); }
 .inventory > .asset-divider { margin: -8px 0 26px; }
 @media (min-width: 761px) and (max-width: 1439px) {
   .home-content { margin-left: calc(50% - 350px); }
@@ -52,7 +44,6 @@
   .hero-actions { flex-wrap: nowrap; gap: 8px; }
   .hero-actions .pixel-button { padding: 12px; font-size: 16px; gap: 6px; flex: 1; white-space: nowrap; }
   .hero-paper .social-links { gap: 20px; margin-top: 14px; }
-  .world-controls { left: calc(50% - 140px); width: 280px; bottom: 8px; padding: 12px 20px; gap: 20px; }
 }
 @media (max-width: 370px) {
   .nav-links { flex-wrap: wrap; justify-content: center; gap: 0 12px; }

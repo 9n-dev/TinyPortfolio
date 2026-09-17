@@ -36,7 +36,7 @@ export function Navigation() {
     <nav className="navigation" aria-label={t.nav.main}>
       <NineSliceSurface skin="wood" />
       <div className="nav-rail"><NineSliceSurface skin="paper" />
-      <a className="brand" href="#home" aria-label={`${siteConfig.name} — Home`}>{siteConfig.name}</a>
+      <a className="brand" href="#home" aria-label={`${siteConfig.brand}: ${t.nav.home}`}>{siteConfig.brand}</a>
       <div className="nav-links">
         {siteConfig.sections.map(id => <a key={id} href={`#${id}`}
           aria-current={active === id ? 'location' : undefined}>{t.nav[id]}</a>)}

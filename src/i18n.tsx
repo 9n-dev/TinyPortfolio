@@ -25,7 +25,7 @@ export function LanguageProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     try { localStorage.setItem('lang', lang); } catch { /* not persisted; still works for this visit */ }
     document.documentElement.lang = lang;
-    document.title = `${siteConfig.name} — ${t.role.split(' · ')[0]}`;
+    document.title = `${siteConfig.name} — ${t.role}`;
     document.querySelector('meta[name="description"]')?.setAttribute('content', t.description);
   }, [lang, t]);
   return <LanguageContext.Provider value={{ lang, setLang, t }}>{children}</LanguageContext.Provider>;
