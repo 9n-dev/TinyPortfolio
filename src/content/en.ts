@@ -25,8 +25,8 @@ export const en = {
     view: 'View Project', source: 'Source Code', stackLabel: 'Technology stack',
     list: [
       { name: 'TinyRTS', category: 'Real-time strategy game · Desktop',
-        description: 'A small-scale Warcraft-style RTS for Linux and Windows: economy, construction, combat, technology, fog of war, AI opponents for 2 to 4 players and an in-game map editor. A deterministic C# simulation at 20 Hz, fully decoupled from Godot’s rendering and covered by 145 tests.',
-        stack: ['Godot 4', 'C#', '.NET 8', 'xUnit'], sourceUrl: 'https://github.com/9n-dev/TinyRTS' },
+        description: 'A pixel-art real-time strategy game, like a small Warcraft 3 with the expansion economy of Northgard. Start with a Castle and three Pawns, gather wood and gold, raise an army of Warriors, Archers, Lancers and Monks, and clear goblin villages, spider nests and pirate coves for rewards. Play against up to three AI rivals, with fog of war, plateaus and a built-in map editor. The last Castle standing wins.',
+        stack: ['Godot 4', 'C#', 'Linux & Windows'], url: 'https://9n-dev.github.io/TinyRTS-showcase/', sourceUrl: 'https://github.com/9n-dev/TinyRTS-showcase' },
       { name: 'Mario Hacendado', category: '2D platformer · Browser',
         description: 'A Mario-style platformer with its own physics engine and no game framework: game loop, collisions, camera, enemy state machines, Tiled map loader and sprite system, all tested. One 300-column level with four enemy types.',
         stack: ['TypeScript', 'Canvas 2D', 'Vite', 'Vitest', 'Tiled'], sourceUrl: 'https://github.com/9n-dev/MarioHacendado' },

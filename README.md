@@ -3,7 +3,7 @@
 # TinyPortfolio
 
 **Mi portfolio, dentro del mundo de mi propio juego.**<br>
-La interfaz es la de un RTS en pixel art y, detrás, una aldea de [TinyRTS](https://github.com/9n-dev/TinyRTS) sigue con su vida.
+La interfaz es la de un RTS en pixel art y, detrás, una aldea de [TinyRTS](https://github.com/9n-dev/TinyRTS-showcase) sigue con su vida.
 
 ### [Verlo en vivo: 9n-dev.github.io/TinyPortfolio](https://9n-dev.github.io/TinyPortfolio/)
 
