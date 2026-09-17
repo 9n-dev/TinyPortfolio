@@ -47,7 +47,7 @@ export const es: Content = {
   },
   contact: {
     sectionTitle: 'Contacto', title: 'Construyamos algo juntos.',
-    description: '¿Tienes un proyecto en mente, un reto interesante o solo quieres saludar? Deja un mensaje en el puesto avanzado.',
+    description: '¿Tienes un proyecto en mente, un reto interesante o solo quieres saludar? Deja un mensaje y te contactaré lo antes posible.',
     formTitle: 'Deja un mensaje', name: 'Nombre', namePlaceholder: 'Tu nombre', email: 'Email', emailPlaceholder: 'tu@email.com', message: 'Mensaje',
     messagePlaceholder: 'Cuéntame tu idea…', messageRequired: 'Escribe un mensaje.', send: 'Enviar mensaje', sending: 'Enviando…',
     privacy: 'Tus datos solo se usan para responder a tu mensaje.', demoNotice: 'Formulario de demostración: los mensajes aún no se envían.',

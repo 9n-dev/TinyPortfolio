@@ -47,7 +47,7 @@ export const en = {
   },
   contact: {
     sectionTitle: 'Get in touch', title: "Let's build something together.",
-    description: 'Have a project in mind, an interesting challenge, or just want to say hello? Leave a message at the outpost.',
+    description: 'Have a project in mind, an interesting challenge, or just want to say hello? Leave a message and I will get back to you as soon as possible.',
     formTitle: 'Leave a message', name: 'Name', namePlaceholder: 'Your name', email: 'Email', emailPlaceholder: 'you@example.com', message: 'Message',
     messagePlaceholder: 'Tell me about your idea…', messageRequired: 'Please write a message.', send: 'Send Message', sending: 'Sending…',
     privacy: 'Your details are only used to reply to your message.', demoNotice: 'Demo form — messages are not sent yet.',
